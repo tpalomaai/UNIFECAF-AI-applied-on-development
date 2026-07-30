@@ -15,7 +15,7 @@ As respostas são baseadas exclusivamente nos conteúdos oficiais cadastrados pa
 | Aplicação publicada | [Acessar a Academia de Pães Marli](https://marlipaes.lovable.app) |
 | Apresentação em vídeo | [Assistir no YouTube](https://www.youtube.com/watch?v=6DTojZaHvoU) |
 | Repositório do projeto | [Ver projeto no GitHub](https://github.com/tpalomaai/unifecaf-ai-applied-on-development) |
-| Relatório completo | [Abrir o PDF do projeto](docs/relatorio-projeto.pdf) |
+| Relatório completo | [Abrir o PDF do projeto](https://drive.google.com/file/d/1mj3ZfdehLxKDE1piLTeAgKA9pQ9beDDW/view?usp=sharing) |
 
 ---
 
