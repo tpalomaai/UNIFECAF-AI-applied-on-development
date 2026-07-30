@@ -1,0 +1,122 @@
+# Implementar sincronização manual dos conteúdos
+
+Implemente uma sincronização manual para a base de conhecimento da Academia de Pães Marli.
+
+## Objetivo
+
+Enquanto não existir um painel administrativo, preciso de uma forma simples de atualizar a base de conhecimento sempre que eu adicionar ou modificar arquivos no Google Drive ou planilhas no Google Sheets.
+
+Essa sincronização deve poder ser executada manualmente durante o desenvolvimento.
+
+## O que a sincronização deve fazer
+
+Quando executada, deve:
+
+1. Ler novamente todas as fontes configuradas.
+2. Verificar Google Drive.
+3. Verificar Google Sheets.
+4. Detectar arquivos novos.
+5. Detectar arquivos alterados.
+6. Ignorar arquivos que não sofreram alterações.
+7. Importar somente conteúdos novos ou modificados.
+8. Atualizar registros existentes quando necessário.
+9. Não criar duplicações.
+10. Atualizar a indexação da busca.
+11. Gerar embeddings apenas para conteúdos novos ou alterados.
+12. Tornar imediatamente os novos conteúdos pesquisáveis pelo copiloto.
+
+## Detecção de alterações
+
+Utilizar sempre que possível:
+
+- ID do arquivo
+- ID da planilha
+- Nome da aba
+- Data da última modificação
+- Hash do conteúdo
+
+Se nada mudou, não reprocessar.
+
+## PDFs
+
+Para novos PDFs:
+
+- extrair texto;
+- normalizar;
+- salvar;
+- gerar embeddings.
+
+Para PDFs alterados:
+
+- substituir o conteúdo antigo;
+- atualizar embeddings.
+
+## Google Sheets
+
+Para novas planilhas ou novas abas:
+
+- importar normalmente.
+
+Para planilhas existentes:
+
+- atualizar somente linhas novas ou modificadas.
+
+Não duplicar registros.
+
+## Relatório
+
+Ao finalizar, retornar um resumo semelhante a:
+
+- Fontes verificadas
+- Arquivos novos
+- Arquivos atualizados
+- Arquivos sem alterações
+- PDFs processados
+- Planilhas processadas
+- Registros criados
+- Registros atualizados
+- Registros ignorados
+- Embeddings gerados
+- Tempo total
+
+Também informar possíveis erros sem interromper toda a sincronização.
+
+## Não alterar
+
+Não modificar:
+
+- interface do usuário;
+- identidade visual;
+- banco de dados;
+- busca;
+- IA;
+- traduções;
+- componentes existentes.
+
+## Implementação temporária
+
+Não criar ainda um painel administrativo.
+
+Crie apenas uma maneira simples de executar essa sincronização durante o desenvolvimento.
+
+Pode ser, por exemplo:
+
+- uma Edge Function chamada `syncKnowledge`;
+- uma rota protegida;
+- um comando interno;
+- ou outra solução equivalente apropriada para o projeto.
+
+A implementação deve facilitar a futura criação de um botão "Sincronizar conteúdos" no painel administrativo.
+
+## Testes
+
+Após implementar:
+
+1. Adicione uma nova planilha.
+2. Adicione um novo PDF.
+3. Execute a sincronização.
+4. Confirme que ambos aparecem na base.
+5. Faça perguntas utilizando esses novos conteúdos.
+6. Confirme que o copiloto responde utilizando os novos dados.
+7. Execute novamente a sincronização sem alterar os arquivos.
+8. Confirme que nenhum conteúdo foi duplicado e que apenas arquivos alterados seriam reprocessados.
