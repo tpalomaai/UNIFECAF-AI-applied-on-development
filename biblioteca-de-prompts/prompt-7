@@ -1,0 +1,329 @@
+# CORREÇÃO DA SINCRONIZAÇÃO, BUSCA E TRADUÇÃO — ACADEMIA DE PÃES MARLI
+
+Corrija os problemas atuais sem criar novas funcionalidades e sem reformular a identidade visual.
+
+Problemas:
+
+1. Google Sheets e Google Drive aparecem conectados, mas o copiloto não recupera a planilha nem o PDF.
+2. A página possui português, inglês e japonês, porém ainda exibe trechos em português.
+3. A resposta da IA e as mensagens do backend precisam respeitar o idioma ativo.
+4. A busca deve funcionar quando a fonte estiver em português e a pergunta for feita em inglês ou japonês.
+
+Não considere a tarefa concluída apenas porque o conector aparece como conectado. Verifique o fluxo completo: leitura, importação, indexação, recuperação e resposta.
+
+## 1. Auditoria obrigatória
+
+Antes de alterar:
+
+- Identifique as conexões ativas do Google Workspace e a conta autorizada.
+- Liste as planilhas e arquivos que a conexão consegue acessar.
+- Localize o PDF de receita e a planilha/aba de problemas comuns.
+- Localize funções de sincronização, extração, normalização, embeddings, busca e geração de resposta.
+- Revise tabelas, triggers, jobs, Edge Functions, serviços, hooks e logs.
+- Preserve os dados e crie backup antes de mudanças destrutivas.
+- Informe resumidamente a causa encontrada antes de implementar.
+
+## 2. Teste direto das conexões
+
+### Google Sheets
+
+Confirme pelo backend:
+
+- A planilha e a aba podem ser abertas.
+- Os cabeçalhos reais são reconhecidos.
+- Linhas preenchidas são retornadas.
+- A quantidade lida é maior que zero.
+
+### Google Drive
+
+Confirme pelo backend:
+
+- O PDF pode ser localizado.
+- O arquivo pode ser recuperado.
+- O tipo MIME é PDF.
+- O texto extraído não está vazio.
+
+Se houver falha, corrija permissões, identificadores, escopos, nomes de conexão ou parâmetros. Não use dados simulados para ocultar o problema.
+
+## 3. Fluxo obrigatório
+
+Garanta:
+
+Fonte externa
+→ leitura
+→ validação
+→ normalização
+→ `conteudos_conhecimento`
+→ `conteudos_fontes`
+→ `conteudos_busca`
+→ embedding
+→ busca
+→ resposta com fonte
+
+Para cada sincronização, registre no backend:
+
+- Fonte.
+- Status.
+- Data da tentativa e da conclusão.
+- Itens lidos, criados, atualizados, ignorados e com erro.
+- Mensagem técnica de manutenção.
+
+Não mostrar detalhes técnicos ao usuário final.
+
+## 4. Importação do Google Sheets
+
+A planilha contém problemas comuns na produção de pães.
+
+Leia os cabeçalhos reais. Quando forem `Problema`, `Causa` e `Solução`, normalize cada linha assim:
+
+- `titulo`: Problema.
+- `categoria`: `Problemas comuns`.
+- `subcategoria`: classificação existente, se houver; caso contrário, vazia.
+- `conteudo`:
+
+Problema: [valor]  
+Causa: [valor]  
+Solução: [valor]
+
+Regras:
+
+- Um registro por problema.
+- Ignorar linhas vazias.
+- Exigir Problema e pelo menos Causa ou Solução.
+- Remover espaços extras.
+- Usar identificador da planilha, aba e linha.
+- Calcular hash.
+- Atualizar registros alterados sem duplicar.
+- Gerar `conteudos_busca` e embedding.
+- Confirmar que pelo menos um problema foi indexado.
+
+Se os cabeçalhos forem diferentes, detecte e documente o mapeamento real.
+
+## 5. Importação do PDF
+
+Para o PDF de receita:
+
+1. Recupere-o pelo backend.
+2. Extraia o texto.
+3. Remova cabeçalhos repetidos, rodapés e espaços excessivos.
+4. Preserve ingredientes, quantidades, instruções, tempos e temperaturas exatamente como aparecem.
+5. Não invente informação.
+6. Use o nome da receita como título.
+7. Use `Receitas` como categoria.
+8. Use o tipo de pão ou seção como subcategoria somente quando identificado com segurança.
+9. Se for curto, mantenha a receita completa em um registro.
+10. Se for longo, divida por seções coerentes sem cortar instruções.
+11. Registre nome e identificador do arquivo.
+12. Calcule hash, gere índice e embedding.
+13. Confirme que o conteúdo pode ser recuperado.
+
+Se o PDF for apenas imagem:
+
+- Marque como dependente de OCR.
+- Não crie conteúdo vazio.
+- Não invente texto.
+- Use OCR somente se já houver serviço autorizado.
+
+## 6. Base e índice
+
+A tabela principal deve continuar simples:
+
+`conteudos_conhecimento`
+
+- `id`
+- `titulo`
+- `categoria`
+- `subcategoria`
+- `conteudo`
+- `criado_em`
+- `atualizado_em`
+
+Dados técnicos permanecem nas tabelas auxiliares.
+
+Cada conteúdo importado deve possuir:
+
+- Registro canônico.
+- Vínculo com a fonte.
+- Texto indexado.
+- Embedding válido ou status pendente.
+
+Crie reprocessamento para registros sem embedding. Falha de embedding não deve excluir conteúdo.
+
+## 7. Correção da busca
+
+Confirme que a função:
+
+- Consulta a tabela técnica correta.
+- Usa conteúdos indexados.
+- Não exclui conteúdos importados por filtros incorretos.
+- Não depende de campos removidos.
+- Aplica limite de relevância adequado.
+- Recupera poucos resultados.
+- Remove duplicações.
+- Retorna metadados das fontes.
+- Não envia toda a base para a IA.
+
+Teste a busca isoladamente. Nos logs técnicos, registre pergunta, quantidade, títulos, relevância e origem. Não exibir isso publicamente.
+
+## 8. Busca multilíngue
+
+Os conteúdos podem estar em português e a pergunta em inglês ou japonês.
+
+Use:
+
+1. Embeddings multilíngues compatíveis com `pt-BR`, `en` e `ja`; ou
+2. Tradução interna da pergunta para o idioma da base antes da busca.
+
+A solução deve preservar a pergunta original, não mostrar a tradução técnica, recuperar conteúdos equivalentes nos três idiomas e responder no idioma selecionado sem acrescentar fatos.
+
+## 9. Internacionalização completa
+
+Idiomas:
+
+- `pt-BR`
+- `en`
+- `ja`
+
+Procure textos fixos em:
+
+- Páginas e componentes.
+- Hooks, serviços e Edge Functions.
+- Validações, estados, erros e toasts.
+- Placeholders, botões e perguntas sugeridas.
+- Menus e modais existentes.
+- Fontes, metadados, `aria-label`, `title` e `alt`.
+- Respostas fallback do backend.
+
+Centralize tudo em arquivos ou objetos de tradução. Não permitir mistura de idiomas. Envie o idioma ativo ao backend em cada consulta.
+
+Traduções mínimas:
+
+### Descrição
+
+- `pt-BR`: “Tire suas dúvidas sobre receitas, ingredientes e preparo de pães. As respostas são baseadas apenas nos conteúdos oficiais da Academia.”
+- `en`: “Ask questions about recipes, ingredients, and bread preparation. Answers are based only on the Academy’s official content.”
+- `ja`: “パンのレシピ、材料、作り方について質問できます。回答はアカデミーの公式コンテンツのみに基づいています。”
+
+### Consultar
+
+- `pt-BR`: “Consultar conteúdos”
+- `en`: “Search content”
+- `ja`: “コンテンツを検索”
+
+### Placeholder
+
+- `pt-BR`: “Pergunte sobre receitas, ingredientes ou preparo de pães…”
+- `en`: “Ask about recipes, ingredients, or bread preparation…”
+- `ja`: “レシピ、材料、パン作りについて質問してください…”
+
+### Carregamento
+
+- `pt-BR`: “Consultando os conteúdos da Academia…”
+- `en`: “Searching the Academy’s content…”
+- `ja`: “アカデミーのコンテンツを検索しています…”
+
+### Não encontrado
+
+- `pt-BR`: “Não encontrei essa informação nos conteúdos cadastrados da Academia de Pães Marli.”
+- `en`: “I couldn’t find this information in Academia de Pães Marli’s registered content.”
+- `ja`: “アカデミー・デ・パエス・マルリに登録されているコンテンツ内に、この情報は見つかりませんでした。”
+
+### Erro
+
+- `pt-BR`: “Não foi possível concluir a consulta agora.”
+- `en`: “We couldn’t complete your request right now.”
+- `ja`: “現在、検索を完了できませんでした。”
+
+### Tentar novamente
+
+- `pt-BR`: “Tentar novamente”
+- `en`: “Try again”
+- `ja`: “もう一度試す”
+
+### Fontes
+
+- `pt-BR`: “Fontes consultadas”, “Título”, “Categoria”, “Subcategoria”
+- `en`: “Sources consulted”, “Title”, “Category”, “Subcategory”
+- `ja`: “参照した情報源”, “タイトル”, “カテゴリー”, “サブカテゴリー”
+
+Revise também todos os textos não listados.
+
+## 10. Resposta da IA
+
+A função deve receber:
+
+{
+  "pergunta": "Texto",
+  "idioma": "pt-BR | en | ja"
+}
+
+A IA deve:
+
+- Responder somente com os trechos recuperados.
+- Responder no idioma solicitado.
+- Traduzir fielmente quando necessário.
+- Preservar ingredientes, quantidades, tempos e temperaturas.
+- Não inventar fatos ou fontes.
+- Retornar não encontrado quando os trechos forem insuficientes.
+
+## 11. Testes de ponta a ponta
+
+### PDF
+
+Após importar:
+
+- Identifique o nome real da receita.
+- Pergunte sobre o título, um ingrediente e uma etapa.
+- Confirme resposta e fonte do Google Drive.
+
+### Planilha
+
+Escolha uma linha real:
+
+- Pergunte a causa do problema.
+- Pergunte a solução.
+- Confirme resposta e fonte do Google Sheets.
+
+### Idiomas
+
+Repita pelo menos uma pergunta do PDF e uma da planilha em português, inglês e japonês.
+
+Confirme:
+
+- O mesmo conteúdo é recuperado.
+- A resposta está no idioma ativo.
+- Nenhum trecho da interface permanece em português.
+- Rótulos das fontes estão traduzidos.
+- Nenhuma informação é inventada.
+
+Teste também os estados não encontrado e erro nos três idiomas.
+
+## 12. Segurança
+
+- Executar conectores e extração no backend.
+- Não expor tokens, secrets, embeddings ou logs.
+- Não salvar perguntas.
+- Não permitir escrita pública.
+- Preservar as políticas existentes.
+
+## 13. Restrições
+
+Não criar login, painel administrativo, upload público, histórico, novas páginas ou novos recursos. Não alterar a identidade visual. Não substituir conteúdos reais por simulações. Não declarar sucesso sem testar o fluxo completo.
+
+## 14. Relatório final
+
+Informe:
+
+1. Causa da falha no Google Sheets.
+2. Causa da falha no PDF.
+3. Fontes e conexões verificadas.
+4. Quantidades lidas, criadas e atualizadas.
+5. Resultado da extração do PDF.
+6. Trechos indexados e status dos embeddings.
+7. Perguntas testadas.
+8. Resultados em `pt-BR`, `en` e `ja`.
+9. Textos não traduzidos encontrados e corrigidos.
+10. Arquivos e funções modificados.
+11. Limitações e configurações manuais pendentes.
+
+Não afirme que algo foi corrigido se leitura, indexação e recuperação não tiverem sido verificadas.
