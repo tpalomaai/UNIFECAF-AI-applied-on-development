@@ -1,0 +1,48 @@
+# CORREÇÃO DE BUGS DE IDIOMA E RESPONSIVIDADE
+
+Corrija os problemas relatados na aplicação Academia de Pães Marli sem alterar funcionalidades, integrações, identidade visual, tipografia, paleta, estrutura do banco ou componentes que já estejam funcionando corretamente.
+
+Faça mudanças pontuais e preserve o comportamento atual da aplicação sempre que ele não estiver relacionado aos erros descritos.
+
+## 1. Bug ao trocar o idioma depois de uma consulta
+
+### Problema atual
+
+Quando o idioma é escolhido antes de enviar uma pergunta, a resposta aparece corretamente no idioma selecionado.
+
+Porém, quando uma pergunta já foi respondida e o usuário altera o idioma da página, a resposta anterior permanece visível no idioma antigo.
+
+Isso causa uma interface com idiomas misturados.
+
+### Comportamento esperado
+
+Sempre que o idioma for alterado, a consulta atual deve ser completamente reiniciada.
+
+Ao mudar entre:
+
+- Português do Brasil: `pt-BR`
+- Inglês: `en`
+- Japonês: `ja`
+
+A aplicação deve voltar ao estado inicial do copiloto.
+
+Limpar:
+
+- Pergunta digitada.
+- Última pergunta enviada.
+- Resposta anterior.
+- Fontes anteriores.
+- Mensagens de informação não encontrada.
+- Mensagens de erro.
+- Estado de carregamento.
+- Dados temporários relacionados à última consulta.
+
+Definir novamente:
+
+```ts
+status = "inicial"
+pergunta = ""
+ultimaPerguntaEnviada = ""
+resposta = ""
+fontes = []
+erro = null
