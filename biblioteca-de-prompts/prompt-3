@@ -1,0 +1,196 @@
+Configure a base de conhecimento da Academia de Pães Marli utilizando o Lovable Cloud.
+
+Nesta etapa, implemente somente a estrutura de dados, segurança, mecanismo de recuperação e conteúdos demonstrativos. Não conecte ainda o frontend à inteligência artificial.
+
+## 1. Tabela principal
+
+Crie uma única tabela chamada:
+
+conteudos_conhecimento
+
+Utilize os campos:
+
+- id: UUID, chave primária e gerado automaticamente.
+- titulo: texto obrigatório.
+- categoria: texto obrigatório.
+- subcategoria: texto.
+- categoria: texto obrigatório.
+- conteudo: texto longo obrigatório.
+- palavras_chave: tipo apropriado para armazenar vários termos relacionados.
+- ordem: número inteiro.
+- ativo: booleano, com valor padrão verdadeiro.
+- embedding: tipo nativo apropriado para busca semântica.
+- criado_em: data e hora gerada automaticamente.
+- atualizado_em: data e hora atualizada automaticamente quando possível.
+- demonstrativo: booleano, com valor padrão verdadeiro para os registros iniciais.
+
+Cada registro deverá representar um trecho independente e focado em apenas um assunto.
+
+Não criar tabelas separadas de cursos, módulos ou aulas neste MVP.
+
+## 2. Categorias aceitas
+
+Utilize inicialmente:
+
+- Receitas.
+- Ingredientes.
+- Substituições.
+- Fermentação.
+- Sova.
+- Modelagem.
+- Forneamento.
+- Conservação.
+- Problemas comuns.
+
+Mantenha a estrutura preparada para novas categorias, sem criar uma interface administrativa.
+
+## 3. Busca semântica
+
+Configure o mecanismo nativo recomendado pelo Lovable Cloud para:
+
+- Gerar embeddings dos conteúdos.
+- Armazenar os embeddings.
+- Comparar a pergunta com os conteúdos ativos.
+- Ordenar resultados por relevância.
+- Recuperar somente os trechos mais relacionados.
+- Aplicar um limite mínimo de relevância.
+- Evitar conteúdos duplicados.
+
+Crie uma função de banco ou mecanismo reutilizável de busca que receba:
+
+- A representação semântica da pergunta.
+- A quantidade máxima de resultados.
+- O limite mínimo de relevância.
+
+Ela deverá retornar somente:
+
+- id.
+- titulo.
+- categoria.
+- subcategoria.
+- conteudo.
+- nivel_relevancia.
+
+Não retornar embeddings ao frontend.
+
+## 4. Segurança
+
+O frontend público não poderá:
+
+- Criar registros.
+- Editar registros.
+- Excluir registros.
+- Alterar o campo ativo.
+- Alterar embeddings.
+- Consultar diretamente toda a base.
+- Executar buscas sem passar pela função segura de backend.
+
+A base deverá ser consultada somente pelo fluxo seguro do copiloto.
+
+Não criar autenticação para usuários, porque este MVP não terá login.
+
+Utilize as políticas e proteções adequadas para impedir escrita pública e exposição direta desnecessária.
+
+## 5. Conteúdos demonstrativos
+
+Adicione pelo menos dois registros demonstrativos para cada categoria.
+
+Utilize como curso provisório:
+
+“Fundamentos do Pão Caseiro”
+
+Utilize módulos coerentes, como:
+
+- Conhecendo os ingredientes.
+- Preparando a massa.
+- Fermentação.
+- Sova e desenvolvimento do glúten.
+- Modelagem.
+- Forneamento.
+- Conservação.
+- Solução de problemas.
+
+## 6. Regras dos registros demonstrativos
+
+Os conteúdos deverão:
+
+- Ser escritos em português do Brasil.
+- Utilizar linguagem clara e didática.
+- Ser identificados pelo campo demonstrativo como conteúdo provisório.
+- Manter cada registro focado em um único assunto.
+- Não misturar várias técnicas diferentes no mesmo trecho.
+- Incluir título, categoria, subcategoria, e palavras-chave coerentes.
+- Não conter dados pessoais.
+- Não conter informações médicas ou nutricionais.
+- Não citar marcas comerciais.
+- Não ser apresentados como textos definitivos da instrutora Marli.
+- Poder ser substituídos posteriormente pelos conteúdos oficiais.
+
+Inclua conteúdos suficientes para testar perguntas sobre:
+
+- Função do fermento.
+- Diferença entre fermento seco e fresco.
+- Desenvolvimento do glúten.
+- Ponto de véu.
+- Massa pesada.
+- Primeira fermentação.
+- Modelagem.
+- Temperatura do forno.
+- Resfriamento do pão.
+- Conservação.
+
+Não invente proporções exatas de substituição quando isso não for essencial para os testes. Quando utilizar tempos, temperaturas ou quantidades nos conteúdos demonstrativos, deixe claro que são exemplos provisórios.
+
+## 7. Índices e desempenho
+
+Crie os índices necessários para:
+
+- Consultar somente registros ativos.
+- Filtrar por categoria.
+- Executar busca semântica.
+- Ordenar conteúdos quando necessário.
+
+Não criar uma arquitetura excessivamente complexa para o tamanho deste MVP.
+
+## 8. Preparação para o backend
+
+Deixe a busca preparada para que uma função segura possa:
+
+1. Receber uma pergunta.
+2. Criar o embedding da pergunta.
+3. Consultar os conteúdos relevantes.
+4. Obter os trechos e os dados das fontes.
+5. Entregar os resultados para a etapa de geração da resposta.
+
+Não implemente ainda a geração da resposta pela IA.
+
+## 9. Restrições
+
+Não criar:
+
+- Tabelas de usuários.
+- Tabelas de conversas.
+- Tabelas de mensagens.
+- Histórico.
+- Painel administrativo.
+- Tela de cadastro.
+- Upload de documentos.
+- Tela de gerenciamento dos conteúdos.
+- Login.
+- Novas páginas.
+
+Não modificar desnecessariamente o frontend criado anteriormente.
+
+## 10. Resultado esperado
+
+Ao concluir, informe:
+
+1. Tabela criada.
+2. Campos e tipos utilizados.
+3. Políticas de segurança aplicadas.
+4. Índices criados.
+5. Mecanismo de busca configurado.
+6. Quantidade de registros demonstrativos.
+7. Quantidade de registros por categoria.
+8. Como os conteúdos poderão ser substituídos futuramente.
+9. Qualquer configuração que ainda dependa da próxima etapa.
