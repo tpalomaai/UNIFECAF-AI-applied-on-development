@@ -1,0 +1,89 @@
+# Padrões gerais do workspace
+
+Estas regras valem para todos os projetos, salvo quando o Project Knowledge definir algo mais específico.
+
+## Idiomas e localização
+
+- Todo projeto multilíngue deve centralizar os textos em um sistema de internacionalização, evitando textos fixos espalhados pelos componentes.
+- Usar chaves de tradução consistentes para títulos, descrições, botões, placeholders, menus, modais, tabelas, estados, validações, mensagens de erro, tooltips, metadados, textos alternativos e atributos aria.
+- Nunca misturar idiomas na mesma tela, exceto nomes próprios ou conteúdo original que precise ser preservado.
+- O idioma selecionado deve ser aplicado também às mensagens vindas do backend e às respostas geradas por inteligência artificial.
+- Definir um idioma padrão e um fallback explícito.
+- Quando uma tradução estiver ausente, registrar o problema e usar o fallback; não exibir a própria chave de tradução ao usuário.
+- Revisar pluralização, pontuação, quebras de linha e comprimento dos textos em cada idioma.
+- Não traduzir identificadores técnicos, nomes de campos, valores de enum ou chaves internas.
+- Usar códigos de localidade claros, como `pt-BR`, `en` e `ja`.
+
+## Integrações e fontes externas
+
+- Uma conexão autorizada não deve ser considerada integração concluída até que a aplicação consiga ler, validar, normalizar e usar os dados.
+- A leitura de Google Sheets, Google Drive, Notion ou outras fontes deve acontecer por conector seguro ou função de backend.
+- Nunca expor tokens, credenciais, secrets ou respostas técnicas completas no navegador.
+- Toda importação ou sincronização deve registrar fonte, data, status, quantidade processada e mensagem de erro quando houver falha.
+- Validar campos obrigatórios, ignorar linhas vazias e impedir duplicações.
+- Usar identificador externo e hash de conteúdo para atualizar registros existentes em vez de duplicá-los.
+- Conteúdos externos devem ser normalizados em uma estrutura canônica antes de serem usados pela busca.
+- Documentos longos devem ser divididos em trechos coerentes, sem cortar frases ou instruções.
+- PDFs sem texto extraível devem ser marcados como dependentes de OCR; não inventar conteúdo.
+- A falha de indexação não deve apagar o conteúdo importado.
+- Após qualquer importação, executar ou agendar a atualização do índice de busca e dos embeddings necessários.
+- Não afirmar que uma fonte está sincronizada sem testar a leitura e confirmar os registros gerados.
+
+## Tecnologias e código
+
+- Utilizar React, TypeScript e Tailwind CSS quando forem as tecnologias existentes.
+- Manter TypeScript estrito e evitar `any`.
+- Criar tipos para entradas, respostas, estados e dados do backend.
+- Usar `unknown` para dados ainda não validados.
+- Centralizar chamadas externas em serviços, hooks ou funções seguras.
+- Não chamar APIs protegidas ou inteligência artificial diretamente no navegador.
+- Reutilizar componentes e bibliotecas existentes antes de adicionar dependências.
+- Não reestruturar componentes que funcionam sem necessidade.
+
+## Organização
+
+- Usar PascalCase em componentes e tipos.
+- Usar camelCase em variáveis, funções e propriedades.
+- Hooks personalizados devem começar com `use`.
+- Nomes de arquivos não devem conter espaços ou acentos.
+- Separar componentes, hooks, serviços, tipos e utilitários quando isso melhorar a manutenção.
+- Evitar código duplicado, arquivos excessivamente grandes e lógica complexa dentro de componentes visuais.
+
+## Segurança
+
+- Validar no backend toda entrada enviada pelo frontend.
+- Validar no frontend o formato das respostas recebidas.
+- Armazenar secrets apenas no ambiente seguro.
+- Não expor embeddings, prompts internos, stack traces, logs privados ou configurações protegidas.
+- Aplicar permissões mínimas nas integrações.
+- Não permitir escrita pública no banco sem necessidade explícita.
+- Mensagens ao usuário devem ser simples e não técnicas.
+
+## Responsividade e acessibilidade
+
+- Desenvolver para celular, tablet e desktop.
+- Evitar overflow horizontal, larguras fixas frágeis e sobreposição de componentes.
+- Garantir foco visível, navegação por teclado e áreas de toque adequadas.
+- Usar HTML semântico, apenas um `h1` por página e hierarquia correta de títulos.
+- Associar labels aos campos e usar aria-labels quando necessário.
+- Usar aria-live em estados dinâmicos importantes.
+- Manter contraste adequado e respeitar redução de movimento.
+- Imagens decorativas devem ser ignoradas por leitores de tela.
+- Testar no mínimo em 360px, 390px, 768px, 1024px e 1440px.
+
+## Estados e erros
+
+- Operações assíncronas devem prever estado inicial, carregamento, sucesso, ausência de resultado e erro.
+- Impedir envios duplicados durante o carregamento.
+- Preservar dados importantes do usuário durante falhas.
+- Permitir nova tentativa quando fizer sentido.
+- Não mostrar mensagens técnicas ao usuário final.
+
+## Alterações e finalização
+
+- Alterar apenas a área solicitada.
+- Não adicionar login, cadastro, upload, painel, histórico ou novas páginas por iniciativa própria.
+- Antes de mudanças destrutivas, criar backup e explicar o impacto.
+- Remover código morto, logs temporários, imports não usados e simulações obsoletas.
+- Ao concluir, informar o que mudou, arquivos afetados, testes realizados, limitações e ações manuais pendentes.
+- Não afirmar que algo foi testado ou sincronizado quando não houve verificação real.
