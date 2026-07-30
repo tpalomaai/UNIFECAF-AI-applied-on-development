@@ -1,0 +1,53 @@
+## Objetivo
+
+Finalizar a página única do copiloto: adicionar uma segunda imagem de fundo na seção posterior à hero, revisar contraste, responsividade (320px–1920px), acessibilidade e limpeza — sem alterar backend, escopo, textos obrigatórios, paleta ou tipografia.
+
+## Situação atual verificada
+
+- Página única em `src/routes/index.tsx`: `FundoEditorial` (imagem fixa do ateliê, atrás de tudo) + cabeçalho, apresentação (hero), painel de consulta e área de resultado, rodapé.
+- Só existe **uma** imagem de fundo hoje (`fundo-atelie.jpg`), aplicada globalmente em `position: fixed`. Não há menus, modais nem tabelas no projeto.
+- O painel de consulta e a área de resposta ficam diretamente sobre esse fundo global, sem tratamento próprio de seção.
+
+## 1. Nova imagem de fundo (seção de consulta e resultado)
+
+- Gerar uma nova fotografia (diferente da hero): bancada de madeira com massa em preparo, farinha e utensílios, luz quente e lateral, tons escuros de carvão/expresso, sem texto e sem excesso de objetos.
+- Publicá-la como asset CDN (`.asset.json`), em resolução adequada para telas grandes e peso controlado, com `loading="lazy"` e `decoding="async"`.
+- Criar `FundoSecao` (novo componente decorativo, `aria-hidden`) e aplicá-lo apenas ao bloco que engloba `PainelConsulta` + área de resultado — a hero continua com `FundoEditorial`.
+
+## 2. Camadas e legibilidade
+
+Ordem: imagem (`object-cover`, `object-position` ajustado por breakpoint) → camada escura semitransparente em tokens da paleta → desfoque suave aplicado só à camada de fundo → conteúdo nítido acima (`relative z-10`).
+
+- Altura da seção definida pelo conteúdo (sem altura fixa), `overflow-hidden` no wrapper da imagem, cor de fundo (carvão) enquanto a imagem carrega.
+- Ajustar, se necessário, opacidade do cartão de resposta e do painel para manter contraste AA em títulos, campo, botões, sugestões, respostas, fontes e mensagens de estado.
+
+## 3. Responsividade e overflow
+
+- Revisar container principal e paddings por breakpoint (320/360/390/430/768/1024/1280/1440/1920).
+- `min-w-0` em filhos flex/grid, quebra de palavras longas em respostas e fontes, `max-width: 100%` em imagens, chips de sugestão com quebra natural e alvo de toque ≥44px.
+- Campo de pergunta: largura fluida, `text-base` (evita zoom no iOS), redimensionamento vertical sem cobrir outros elementos; botão “Consultar conteúdos” com largura estável entre os estados normal e “Consultando…”.
+- Trocar `min-h-screen` por `min-h-dvh` (teclado virtual / alturas reduzidas).
+- Verificar ausência de scroll horizontal medindo `scrollWidth` em cada largura via navegador headless, sem recorrer a `overflow-x: hidden`.
+
+## 4. Acessibilidade
+
+- Confirmar um único `h1`, hierarquia de títulos, label associado ao campo, `aria-live` na área dinâmica, foco visível, ordem de foco, imagens decorativas ignoradas por leitores de tela e respeito a `prefers-reduced-motion`.
+- Corrigir o texto do botão para o rótulo oficial “Consultar conteúdos” (hoje mostra apenas “Consultar”).
+
+## 5. Limpeza
+
+Remover imports/classes sem efeito, breakpoints redundantes, larguras fixas desnecessárias e comentários obsoletos. Nenhum componente funcionando será reestruturado sem necessidade.
+
+## 6. Verificação
+
+Executar Playwright headless nas nove larguras e em altura reduzida, percorrendo os estados: inicial, carregando, encontrado, não encontrado, erro, nova consulta, tentar novamente, campo vazio/preenchido e sugestão selecionada. Corrigir e reverificar até não haver overflow nem sobreposição, e então entregar o relatório final com os 14 itens solicitados.
+
+### Detalhes técnicos
+
+Arquivos previstos: `src/routes/index.tsx`, `src/components/copiloto/FundoSecao.tsx` (novo), `FundoEditorial.tsx`, `PainelConsulta.tsx`, `CampoPergunta.tsx`, `BotaoConsultar.tsx`, `PerguntasSugeridas.tsx`, `RespostaCopiloto.tsx`, `ListaFontes.tsx`, `ItemFonte.tsx`, `EstadoCarregamento/NaoEncontrado/Erro.tsx`, `CabecalhoMarca.tsx`, `RodapeInstitucional.tsx`, `src/styles.css` e novo asset de imagem. Backend, banco, prompts e busca semântica ficam intactos.
+
+### Ponto de decisão
+
+O cabeçalho usa hoje a fonte manuscrita “Great Vibes” em “Marli”, o que contraria a regra do projeto de usar apenas Playfair Display e Inter.   
+  
+**Decisão:** Gostaria de manter mesmo assim, apenas talvez mudar o tamanho ou posicionamento do nome para trazer personalidade ao site, já que é direcionado para um público específico.
