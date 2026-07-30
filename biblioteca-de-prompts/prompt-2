@@ -1,0 +1,353 @@
+Implemente o frontend completo da Academia de Pães Marli seguindo o plano aprovado.
+
+Nesta etapa, construa somente a interface, os componentes e os estados visuais. Não crie banco de dados, função de backend ou integração real com inteligência artificial.
+
+## 1. Estrutura da aplicação
+
+Crie uma aplicação de página única com os componentes:
+
+- PaginaCopiloto
+- FundoEditorial
+- CabecalhoMarca
+- ApresentacaoCopiloto
+- PainelConsulta
+- CampoPergunta
+- BotaoConsultar
+- PerguntasSugeridas
+- RespostaCopiloto
+- ListaFontes
+- ItemFonte
+- EstadoCarregamento
+- EstadoNaoEncontrado
+- EstadoErro
+- RodapeInstitucional
+
+Separe os componentes em arquivos próprios. Não concentre toda a aplicação em um único arquivo.
+
+## 2. Título HTML
+
+Defina:
+
+<title>Academia de Pães Marli | Copiloto de conhecimento</title>
+
+E utilize como descrição da página:
+
+“Consulte os conteúdos oficiais da Academia de Pães Marli sobre receitas, ingredientes, fermentação, sova, modelagem, forneamento e conservação.”
+
+Todo texto visível, título HTML, tooltip e aria-label deverá estar em português do Brasil.
+
+## 3. Identidade visual
+
+Utilize uma estética dark rustic premium, combinando:
+
+- Rústico sofisticado.
+- Artesanal contemporâneo.
+- Visual editorial.
+- Minimalismo rústico.
+- Elegância acolhedora.
+- Luxo discreto.
+- Estética gourmet.
+
+Paleta sugerida:
+
+- Preto carvão para o fundo principal.
+- Marrom expresso para painéis.
+- Marrom madeira para detalhes.
+- Bege creme para textos principais.
+- Dourado queimado para destaques.
+- Caramelo para interações e detalhes.
+
+Evite azul corporativo, cores neon, aparência futurista, gradientes tecnológicos e excesso de glassmorphism.
+
+## 4. Tipografia
+
+Utilize:
+
+- Fonte serifada editorial para títulos.
+- Fonte sans-serif elegante e legível para textos e controles.
+- Fonte manuscrita apenas na palavra “Marli”.
+- Uso moderado de títulos em caixa alta.
+- Espaçamento elegante entre letras.
+- Texto creme sobre fundo escuro.
+
+## 5. Fundo editorial
+
+Crie o componente FundoEditorial.
+
+Utilize uma composição com:
+
+- Fundo carvão e marrom expresso.
+- Textura natural discreta.
+- Fotografia gastronômica de pão artesanal, trigo, farinha ou ambiente de ateliê.
+- Luz quente.
+- Sobreposição escura para preservar a legibilidade.
+- Contraste suficiente para todos os textos.
+
+A fotografia deverá ser decorativa e não poderá competir com o painel de consulta.
+
+## 6. Cabeçalho
+
+No CabecalhoMarca, apresente:
+
+“ACADEMIA DE PÃES”
+
+A palavra manuscrita:
+
+“Marli”
+
+E o texto discreto:
+
+“Copiloto de conhecimento”
+
+Não criar menu, login ou navegação adicional.
+
+## 7. Apresentação principal
+
+No componente ApresentacaoCopiloto, utilize:
+
+Sobretítulo:
+“CONHECIMENTO ARTESANAL”
+
+Título principal:
+“O que você quer saber sobre pães hoje?”
+
+Descrição:
+“Tire suas dúvidas sobre receitas, ingredientes e preparo de pães. As respostas são baseadas apenas nos conteúdos oficiais da Academia.”
+
+Utilize apenas um h1 na página.
+
+## 8. Painel de consulta
+
+O PainelConsulta deverá ser o principal elemento funcional da página.
+
+Características:
+
+- Fundo marrom expresso ou carvão ligeiramente mais claro.
+- Borda fina em dourado queimado com baixa opacidade.
+- Sombra quente e discreta.
+- Cantos arredondados moderados.
+- Espaçamento confortável.
+- Aparência editorial e premium.
+- Boa legibilidade.
+
+## 9. Campo da pergunta
+
+Utilize um text area de uma a três linhas.
+
+Placeholder:
+
+“Pergunte sobre receitas, ingredientes, fermentação ou preparo de pães…”
+
+Comportamento visual e local:
+
+- Enter deverá simular o envio.
+- Shift + Enter deverá inserir uma quebra de linha.
+- O campo deverá expandir moderadamente.
+- Fundo carvão.
+- Texto creme claro.
+- Foco visível em dourado queimado.
+- Botão desabilitado quando o campo estiver vazio.
+- Impedir envio duplicado durante a simulação de carregamento.
+
+Utilize:
+
+aria-label="Escreva sua pergunta sobre produção de pães"
+
+## 10. Botão de consulta
+
+Texto padrão:
+
+“Consultar”
+
+Durante o carregamento:
+
+“Consultando…”
+
+O botão deverá:
+
+- Utilizar dourado queimado ou caramelo.
+- Possuir texto carvão de alto contraste.
+- Ter hover discreto.
+- Ter foco visível.
+- Possuir área de toque adequada.
+- Permanecer desabilitado com o campo vazio ou durante o carregamento.
+
+Utilize:
+
+aria-label="Consultar os conteúdos da Academia de Pães Marli"
+
+Abaixo do campo, apresente:
+
+“As respostas são geradas somente com base nos conteúdos cadastrados.”
+
+## 11. Perguntas sugeridas
+
+Crie o título:
+
+“PERGUNTAS PARA COMEÇAR”
+
+Adicione as sugestões:
+
+- “Por que meu pão ficou pesado?”
+- “Como saber se a massa chegou ao ponto de véu?”
+- “Posso substituir fermento biológico seco pelo fresco?”
+- “Quanto tempo devo deixar a massa fermentar?”
+- “Como conservar o pão caseiro depois de assado?”
+
+Ao selecionar uma sugestão:
+
+1. Preencher o campo.
+2. Manter o foco no campo.
+3. Não enviar automaticamente.
+4. Permitir que o texto seja editado.
+
+Apresente as sugestões como botões ou cartões compactos, responsivos e acessíveis.
+
+## 12. Área da resposta
+
+A resposta não deverá ter aparência de chat ou balão de conversa.
+
+Design:
+
+Heading da Área de Resposta deve ter uma Hero Image horizontal e panorâmica ocupando a largura da página mas com a altura reduzida de uma imagem gastronômica de pão artesanal. Ela deve funcionar como uma faixa visual de transição entre as seções, semelhante a uma quebra de página e não como uma hero section de tela cheia.
+
+Utilize:
+
+Sobretítulo:
+“RESPOSTA BASEADA NO CONTEÚDO”
+
+Título:
+“Orientação da Marli”
+
+A resposta deverá permitir:
+- Parágrafos curtos.
+- Listas.
+- Destaques moderados.
+- Espaçamento confortável.
+- Boa largura de leitura.
+
+Não adicionar avatar de robô, botões de curtir, copiar, compartilhar ou avaliar.
+
+## 13. Fontes
+
+Abaixo da resposta, apresente:
+
+“Fontes consultadas”
+
+Cada ItemFonte deverá mostrar:
+
+- Curso.
+- Módulo.
+- Aula ou seção.
+
+Utilize inicialmente dados simulados.
+
+Exemplo:
+
+Curso: Fundamentos do Pão Caseiro
+Categoria: Sova e desenvolvimento do glúten
+Subcategoria: Identificando o ponto de véu
+
+## 14. Estados da interface
+
+Implemente os estados:
+
+- inicial
+- carregando
+- encontrado
+- nao_encontrado
+- erro
+
+No estado inicial, não exiba uma caixa de resposta vazia.
+
+No carregamento, exiba:
+
+“Consultando os conteúdos da Academia…”
+
+Texto auxiliar:
+
+“Estamos procurando as orientações mais relacionadas à sua pergunta.”
+
+Utilize aria-live="polite".
+
+No estado não encontrado, exiba exatamente:
+
+“Não encontrei essa informação nos conteúdos cadastrados da Academia de Pães Marli.”
+
+Texto auxiliar:
+
+“Tente reformular a pergunta utilizando termos relacionados às receitas.”
+
+No estado de erro, exiba:
+
+“Não foi possível concluir a consulta agora.”
+
+Texto auxiliar:
+
+“Tente novamente em instantes.”
+
+Botão:
+
+“Tentar novamente”
+
+## 15. Simulação temporária
+
+Nesta etapa, crie uma simulação local para visualizar todos os estados.
+
+A pergunta:
+
+“Como saber se a massa chegou ao ponto de véu?”
+
+Deverá mostrar uma resposta simulada e fontes simuladas.
+
+Uma pergunta contendo o termo:
+
+“informação inexistente”
+
+Deverá mostrar o estado não encontrado.
+
+Uma pergunta contendo o termo:
+
+“simular erro”
+
+Deverá mostrar o estado de erro.
+
+Essa simulação será removida quando o backend real for conectado.
+
+## 16. Rodapé
+
+Apresente somente:
+
+“Conteúdo baseado nos materiais oficiais da Academia de Pães Marli.”
+
+## 17. Responsividade inicial
+
+Garanta uma estrutura funcional em:
+
+- Celular.
+- Tablet.
+- Notebook.
+- Desktop.
+
+Evite rolagem horizontal.
+
+## 18. Restrições
+
+Não criar nesta etapa:
+
+- Banco de dados.
+- Lovable Cloud.
+- Integração com IA.
+- Login.
+- Upload.
+- Histórico.
+- Painel administrativo.
+- Novas páginas.
+- Navegação complexa.
+
+Ao concluir, informe resumidamente:
+
+1. Componentes criados.
+2. Arquivos criados ou modificados.
+3. Como testar os estados simulados.
+4. Qualquer limitação visual ainda existente.
