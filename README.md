@@ -35,28 +35,6 @@ As respostas são baseadas exclusivamente nos conteúdos oficiais cadastrados pa
 
 ---
 
-## Interface da aplicação
-
-### Português
-
-<p align="center">
-  <img src="assets/interface-portugues.png" alt="Interface da Academia de Pães Marli em português" width="900">
-</p>
-
-### English
-
-<p align="center">
-  <img src="assets/interface-ingles.png" alt="Interface da Academia de Pães Marli em inglês" width="900">
-</p>
-
-### 日本語
-
-<p align="center">
-  <img src="assets/interface-japones.png" alt="Interface da Academia de Pães Marli em japonês" width="900">
-</p>
-
----
-
 ## Contextualização do problema
 
 Uma empresária experiente deseja transformar os conhecimentos adquiridos ao longo de sua trajetória na cozinha em um curso de fabricação de pães. Durante esse processo, foram produzidos testes de receitas, comparações de ingredientes, relatórios, orientações técnicas, tabelas, anotações e conteúdos didáticos.
@@ -115,17 +93,10 @@ A arquitetura foi planejada para trabalhar com informações provenientes de tab
 
 A aplicação possui conexões com Google Drive e Google Sheets para acessar as fontes oficiais do projeto.
 
-<p align="center">
-  <img src="assets/conectores.png" alt="Conectores do Google Drive e Google Sheets configurados no projeto" width="900">
-</p>
 
 ### Banco de dados
 
 Após a importação, os conteúdos e suas fontes são armazenados e preparados para a recuperação semântica.
-
-<p align="center">
-  <img src="assets/banco-de-dados.png" alt="Tabelas do banco de dados utilizadas pela base de conhecimento" width="900">
-</p>
 
 ---
 
@@ -312,6 +283,15 @@ A responsabilidade final sobre os conteúdos permanece humana. Os materiais são
 Projeto desenvolvido por **Paloma Ai Tsuchinaga** para a disciplina **IA Generativa Aplicada ao Desenvolvimento**, no curso da Faculdade de Inteligência Artificial da UniFECAF, como atividade de extensão curricularizada e relacionada aos Objetivos de Desenvolvimento Sustentável, em 2026.
 
 ---
+
+## Capturas da aplicação
+
+Os registros visuais da interface, incluindo as versões em **português**, **inglês** e **japonês**, além das telas dos **conectores** e do **banco de dados**, estão organizados em uma pasta pública no Google Drive.
+
+### [📷 Acessar os prints da Academia de Pães Marli](https://drive.google.com/drive/folders/1_ooWQzAmB8AEWU3Ixr3qcF6Ji3COk-fp?usp=sharing)
+
+> O link abre uma pasta externa com as capturas utilizadas para demonstrar a interface, as integrações e a estrutura de dados do projeto.
+
 
 ## Autoria
 
