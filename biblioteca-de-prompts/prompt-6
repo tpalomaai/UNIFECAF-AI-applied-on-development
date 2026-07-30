@@ -1,0 +1,602 @@
+# OTIMIZAÇÃO DO LOVABLE CLOUD — ACADEMIA DE PÃES MARLI
+
+Analise e otimize a estrutura do Lovable Cloud da aplicação Academia de Pães Marli.
+
+O objetivo é tornar a base de conhecimento extremamente simples para cadastro manual, sem perder a busca semântica nem a possibilidade de importar e sincronizar conteúdos externos.
+
+Antes de alterar o banco, funções ou integrações, faça uma auditoria das dependências atuais e apresente um plano seguro de migração.
+
+Não exclua colunas, tabelas ou dados antes de criar uma cópia de segurança e validar a nova estrutura.
+
+# 1. PROBLEMA ATUAL
+
+A tabela `conteudos_conhecimento` possui atualmente as colunas:
+
+- `id`
+- `titulo`
+- `categoria`
+- `subcategoria`
+- `curso`
+- `modulo`
+- `secao`
+- `caminho_pasta`
+- `origem`
+- `receita`
+- `notas`
+- `palavras_chave`
+- `tags_ingredientes`
+- `texto_busca`
+- `embedding`
+- `ativo`
+- `criado_em`
+- `atualizado_em`
+- `conteudo`
+- `ordem`
+- `demonstrativo`
+
+Essa quantidade de campos torna o cadastro manual difícil, confuso e sujeito a erros.
+
+A tabela principal deve armazenar somente o conteúdo que uma pessoa realmente precisa preencher.
+
+Informações técnicas, metadados de importação, embeddings, hashes e controles de sincronização não devem ficar misturados com os campos editoriais.
+
+# 2. RESULTADO ESPERADO
+
+O sistema deverá permitir três formas de inclusão de conteúdo:
+
+1. Cadastro manual simples.
+2. Importação e sincronização a partir de fontes externas.
+3. Migração dos conteúdos já cadastrados na tabela atual.
+
+Todas as formas devem alimentar uma única base canônica usada pelo copiloto.
+
+O usuário não deverá preencher manualmente:
+
+- Embeddings.
+- Texto de busca.
+- Palavras-chave técnicas.
+- Tags de ingredientes.
+- Origem interna.
+- Caminho de pasta.
+- Ordem.
+- Identificadores externos.
+- Hashes.
+- Status de sincronização.
+- Datas de criação ou atualização.
+
+Essas informações devem ser geradas automaticamente ou armazenadas em tabelas auxiliares.
+
+# 3. AUDITORIA OBRIGATÓRIA
+
+Antes de modificar o banco, localize todas as referências às colunas atuais em:
+
+- Componentes do frontend.
+- Hooks.
+- Serviços.
+- Edge Functions.
+- Funções SQL.
+- Consultas ao banco.
+- Triggers.
+- Índices.
+- Políticas RLS.
+- Tipos TypeScript.
+- Dados demonstrativos.
+- Função de busca semântica.
+- Formato das fontes retornadas pela IA.
+
+Informe quais colunas são realmente utilizadas e quais não possuem dependências.
+
+Não remova uma coluna que ainda esteja sendo usada sem atualizar primeiro todas as referências.
+
+# 4. BACKUP E MIGRAÇÃO SEGURA
+
+Antes de qualquer alteração destrutiva:
+
+1. Criar uma cópia completa da tabela atual.
+2. Preservar todos os registros.
+3. Registrar a quantidade de linhas existentes.
+4. Criar a nova estrutura separadamente.
+5. Migrar os dados.
+6. Comparar a quantidade de registros antes e depois.
+7. Validar os campos obrigatórios.
+8. Atualizar o backend e a busca.
+9. Executar testes.
+10. Somente depois desativar a estrutura antiga.
+
+Utilize um nome claro para o backup, como:
+
+`conteudos_conhecimento_backup`
+
+Não excluir o backup automaticamente ao final da implementação.
+
+# 5. NOVA TABELA PRINCIPAL
+
+Recrie ou simplifique a tabela `conteudos_conhecimento` para conter somente:
+
+- `id`: UUID, chave primária e gerado automaticamente.
+- `titulo`: texto obrigatório.
+- `categoria`: texto obrigatório.
+- `subcategoria`: texto opcional.
+- `conteudo`: texto longo obrigatório.
+- `criado_em`: data e hora gerada automaticamente.
+- `atualizado_em`: data e hora atualizada automaticamente.
+
+Essa deve ser a única tabela usada para edição manual do conteúdo.
+
+Durante o cadastro manual, a pessoa deverá preencher apenas:
+
+- Título.
+- Categoria.
+- Subcategoria, se necessário.
+- Conteúdo.
+
+Não exigir o preenchimento manual de nenhum outro campo.
+
+# 6. MIGRAÇÃO DOS DADOS EXISTENTES
+
+Migre os registros atuais sem perder informações.
+
+Utilize prioritariamente:
+
+- `titulo` como novo `titulo`.
+- `categoria` como nova `categoria`.
+- `subcategoria` como nova `subcategoria`.
+- `conteudo` como novo `conteudo`.
+
+Quando `conteudo` estiver vazio, avalie os campos antigos:
+
+- `texto_busca`
+- `receita`
+- `notas`
+- `secao`
+
+Use esses campos somente para recuperar conteúdos que poderiam ser perdidos.
+
+Quando houver informações distribuídas em vários campos, combine-as de maneira legível dentro de `conteudo`, utilizando pequenos títulos quando necessário.
+
+Não inserir valores como `null`, `undefined`, objetos JSON brutos ou listas ilegíveis dentro do conteúdo final.
+
+Quando não existir categoria, utilizar temporariamente:
+
+“Sem categoria”
+
+Quando não existir título, gerar um título provisório coerente e registrar isso no relatório final.
+
+Não sobrescrever conteúdos diferentes durante a migração.
+
+Registros com possíveis conflitos devem ser preservados e apresentados no relatório para revisão manual.
+
+# 7. TABELA DE FONTES EXTERNAS
+
+Crie uma tabela auxiliar chamada:
+
+`fontes_conhecimento`
+
+Ela deverá armazenar somente informações sobre as fontes externas.
+
+Campos recomendados:
+
+- `id`: UUID.
+- `tipo`: texto controlado.
+- `nome`: texto.
+- `url_origem`: texto.
+- `identificador_externo`: texto opcional.
+- `status_sincronizacao`: texto.
+- `ultima_sincronizacao`: data e hora opcional.
+- `mensagem_erro`: texto opcional.
+- `criado_em`: data e hora.
+- `atualizado_em`: data e hora.
+
+Tipos permitidos:
+
+- `manual`
+- `google_sheets`
+- `notion`
+- `google_drive_pdf`
+
+Não misturar esses campos com a tabela principal.
+
+# 8. VÍNCULO ENTRE CONTEÚDO E FONTE
+
+Crie uma tabela auxiliar chamada:
+
+`conteudos_fontes`
+
+Campos recomendados:
+
+- `conteudo_id`: referência a `conteudos_conhecimento`.
+- `fonte_id`: referência a `fontes_conhecimento`.
+- `identificador_item_externo`: texto opcional.
+- `hash_conteudo`: texto utilizado para evitar duplicações.
+- `sincronizado_em`: data e hora.
+- `removido_na_origem`: booleano com valor padrão falso.
+
+Essa tabela deverá permitir identificar:
+
+- De qual fonte veio cada conteúdo.
+- Qual linha, página ou arquivo originou o registro.
+- Se o conteúdo mudou.
+- Se uma nova sincronização deve criar ou atualizar o registro.
+- Se um item foi removido na fonte original.
+
+Conteúdos cadastrados manualmente podem não possuir vínculo externo.
+
+# 9. ESTRUTURA TÉCNICA DA BUSCA
+
+Remova `embedding` e `texto_busca` da tabela principal.
+
+Crie uma tabela técnica separada chamada:
+
+`conteudos_busca`
+
+Campos recomendados:
+
+- `conteudo_id`: referência única a `conteudos_conhecimento`.
+- `texto_indexado`: texto gerado automaticamente.
+- `embedding`: representação vetorial.
+- `hash_conteudo`: texto.
+- `gerado_em`: data e hora.
+
+O campo `texto_indexado` deve ser construído automaticamente combinando:
+
+- Título.
+- Categoria.
+- Subcategoria.
+- Conteúdo.
+
+Exemplo conceitual:
+
+Título: Como identificar o ponto de véu  
+Categoria: Sova  
+Subcategoria: Desenvolvimento do glúten  
+Conteúdo: texto completo do registro
+
+O usuário não deve editar essa tabela manualmente.
+
+# 10. GERAÇÃO AUTOMÁTICA DA BUSCA
+
+Sempre que um conteúdo for criado ou alterado:
+
+1. Gerar novamente o texto indexado.
+2. Verificar se o conteúdo realmente mudou por meio do hash.
+3. Gerar ou atualizar o embedding.
+4. Atualizar `conteudos_busca`.
+5. Registrar a data da geração.
+
+Não gerar novamente o embedding quando o conteúdo não tiver mudado.
+
+Quando um conteúdo for excluído, remover ou invalidar também seu registro técnico de busca.
+
+A falha na geração do embedding não deve apagar o conteúdo principal.
+
+# 11. GOOGLE SHEETS
+
+Permita importar conteúdos de uma planilha do Google Sheets.
+
+Utilize preferencialmente o conector oficial do Google Workspace quando estiver disponível e conectado.
+
+A planilha deverá ter uma estrutura simples:
+
+| titulo | categoria | subcategoria | conteudo |
+|---|---|---|---|
+
+Somente `subcategoria` é opcional.
+
+Durante a importação:
+
+1. Ler as linhas preenchidas.
+2. Ignorar linhas totalmente vazias.
+3. Validar título, categoria e conteúdo.
+4. Mostrar ou registrar linhas inválidas.
+5. Remover espaços desnecessários.
+6. Criar ou atualizar conteúdos.
+7. Evitar registros duplicados.
+8. Gerar a busca automaticamente.
+9. Registrar a fonte e o identificador da linha.
+
+Colunas adicionais da planilha devem ser ignoradas, salvo configuração explícita.
+
+Não exigir que a planilha tenha embeddings, palavras-chave ou campos técnicos.
+
+# 12. NOTION
+
+Permita importar conteúdos de:
+
+- Uma database do Notion.
+- Páginas compartilhadas do Notion.
+
+Utilize o conector do Notion quando estiver disponível e autorizado.
+
+Para uma database, mapear:
+
+- Título → `titulo`.
+- Categoria → `categoria`.
+- Subcategoria → `subcategoria`.
+- Conteúdo ou corpo da página → `conteudo`.
+
+Para páginas comuns:
+
+- Utilizar o título da página como `titulo`.
+- Converter os blocos de texto para conteúdo legível.
+- Preservar títulos, listas e parágrafos.
+- Remover elementos técnicos ou formatação incompatível.
+- Não armazenar o JSON bruto do Notion no campo `conteudo`.
+
+A integração deve acessar somente páginas e databases compartilhadas com o conector.
+
+# 13. PDF NO GOOGLE DRIVE
+
+Permita importar PDFs armazenados no Google Drive.
+
+Utilize o conector do Google Workspace quando disponível.
+
+Fluxo esperado:
+
+1. Localizar o arquivo autorizado no Google Drive.
+2. Baixar ou recuperar o arquivo pelo backend.
+3. Verificar o tipo e o tamanho.
+4. Extrair o texto.
+5. Identificar títulos e seções quando possível.
+6. Dividir documentos muito longos em blocos coerentes.
+7. Criar os conteúdos na tabela principal.
+8. Registrar arquivo e origem nas tabelas auxiliares.
+9. Gerar embeddings automaticamente.
+10. Evitar duplicações em novas sincronizações.
+
+Para cada trecho importado:
+
+- O título pode combinar o nome do documento com o título da seção.
+- A categoria pode ser definida durante a configuração da fonte.
+- A subcategoria pode utilizar o título da seção.
+- O conteúdo deve permanecer completo e compreensível.
+
+Não dividir textos no meio de frases ou instruções.
+
+Não gerar blocos excessivamente pequenos.
+
+Não armazenar o arquivo inteiro em uma única linha quando isso prejudicar a busca.
+
+Quando o PDF não possuir texto extraível e for composto por imagens digitalizadas:
+
+- Não inventar conteúdo.
+- Não considerar a importação concluída.
+- Registrar que o documento requer OCR.
+- Informar claramente essa limitação.
+- Utilizar OCR somente se existir um serviço configurado para isso.
+
+# 14. SINCRONIZAÇÃO
+
+Crie uma função segura de backend para sincronizar cada fonte.
+
+A função deve:
+
+1. Ler a fonte autorizada.
+2. Normalizar os dados.
+3. Validar os campos obrigatórios.
+4. Calcular o hash.
+5. Comparar com os conteúdos já importados.
+6. Criar conteúdos novos.
+7. Atualizar conteúdos alterados.
+8. Não duplicar conteúdos inalterados.
+9. Registrar erros por item.
+10. Atualizar o status da fonte.
+11. Atualizar a data da última sincronização.
+12. Atualizar os embeddings somente quando necessário.
+
+Não excluir automaticamente conteúdos quando um item desaparecer da origem.
+
+Marcar o vínculo como `removido_na_origem` e permitir revisão antes da exclusão definitiva.
+
+# 15. CONECTORES E ALTERNATIVAS
+
+Antes de implementar cada fonte:
+
+- Verificar se o conector necessário está disponível.
+- Verificar se ele está conectado ao projeto.
+- Verificar as permissões concedidas.
+- Não simular uma conexão inexistente.
+- Não inserir credenciais diretamente no frontend.
+
+Caso um conector não esteja disponível:
+
+- Utilizar uma API oficial por meio de Edge Function.
+- Armazenar credenciais em secrets.
+- Ou preparar uma integração por ferramenta externa, como Make ou n8n.
+- Informar claramente qual configuração manual é necessária.
+
+Não expor tokens, chaves, URLs privadas ou credenciais ao navegador.
+
+# 16. CADASTRO MANUAL SIMPLES
+
+Não crie um painel administrativo completo.
+
+Caso já exista alguma interface interna de cadastro, simplifique-a para mostrar somente:
+
+- Título.
+- Categoria.
+- Subcategoria.
+- Conteúdo.
+- Botão “Salvar conteúdo”.
+
+Caso não exista uma interface de cadastro, não adicione uma nova página pública sem autorização.
+
+Garanta que o cadastro direto pelo editor de dados do Lovable Cloud exija somente os quatro campos editoriais.
+
+ID e datas devem ser preenchidos automaticamente.
+
+A criação ou atualização de busca e embedding deve ocorrer em segundo plano.
+
+# 17. ATUALIZAÇÃO DO COPILOTO
+
+Atualize todas as funções de busca e geração de resposta para utilizar a nova estrutura.
+
+A busca deve considerar:
+
+- Título.
+- Categoria.
+- Subcategoria.
+- Conteúdo.
+- Embedding.
+
+Não depender das colunas removidas.
+
+Remover referências a:
+
+- `curso`
+- `modulo`
+- `secao`
+- `caminho_pasta`
+- `origem`
+- `receita`
+- `notas`
+- `palavras_chave`
+- `tags_ingredientes`
+- `texto_busca`
+- `ordem`
+- `demonstrativo`
+
+A resposta do backend deve continuar retornando:
+
+{
+  "status": "encontrado",
+  "resposta": "Texto da resposta.",
+  "fontes": [
+    {
+      "titulo": "Título do conteúdo",
+      "categoria": "Categoria",
+      "subcategoria": "Subcategoria"
+    }
+  ]
+}
+
+`subcategoria` pode ser nula.
+
+# 18. SEGURANÇA
+
+Confirme que:
+
+- A tabela completa não é exposta ao frontend público.
+- O frontend não pode criar, editar ou excluir conteúdos diretamente.
+- As integrações externas executam no backend.
+- Credenciais são armazenadas em secrets ou conectores seguros.
+- Embeddings não são enviados ao navegador.
+- PDFs não confiáveis são validados antes do processamento.
+- Erros técnicos não são apresentados ao usuário final.
+- As políticas RLS continuam protegendo os dados.
+
+Não alterar a autenticação ou criar login para o usuário público.
+
+# 19. TESTES OBRIGATÓRIOS
+
+Teste:
+
+## Cadastro manual
+
+Cadastrar:
+
+- Título: Como identificar o ponto de véu
+- Categoria: Sova
+- Subcategoria: Desenvolvimento do glúten
+- Conteúdo: O ponto de véu é identificado quando uma pequena porção da massa pode ser esticada até formar uma película fina e elástica sem rasgar imediatamente.
+
+Confirmar que:
+
+- O registro é salvo.
+- As datas são geradas.
+- A busca técnica é criada.
+- O embedding é gerado.
+- O copiloto consegue recuperar o conteúdo.
+
+## Google Sheets
+
+Importar uma planilha com pelo menos:
+
+- Uma linha válida.
+- Uma linha sem subcategoria.
+- Uma linha vazia.
+- Uma linha sem conteúdo.
+
+Confirmar que apenas os registros válidos são importados.
+
+## Notion
+
+Importar uma página ou item de database autorizado e confirmar que o conteúdo foi convertido para texto legível.
+
+## Google Drive
+
+Importar um PDF com texto pesquisável e confirmar:
+
+- Extração.
+- Divisão coerente.
+- Ausência de duplicação.
+- Geração da busca.
+
+## Sincronização
+
+Alterar um conteúdo na fonte externa e confirmar que o registro existente é atualizado em vez de duplicado.
+
+## Copiloto
+
+Testar perguntas sobre os conteúdos importados e confirmar que as respostas continuam apresentando as fontes corretas.
+
+# 20. ORDEM DE IMPLEMENTAÇÃO
+
+Siga esta ordem:
+
+1. Auditar dependências.
+2. Criar backup.
+3. Criar a nova estrutura.
+4. Migrar os dados existentes.
+5. Validar a migração.
+6. Criar as tabelas auxiliares.
+7. Atualizar a busca semântica.
+8. Atualizar as Edge Functions.
+9. Testar o cadastro manual.
+10. Configurar importação do Google Sheets.
+11. Configurar importação do Notion.
+12. Configurar importação de PDFs do Google Drive.
+13. Testar sincronizações.
+14. Atualizar o copiloto.
+15. Executar os testes finais.
+16. Somente depois desativar a estrutura antiga.
+
+# 21. RESTRIÇÕES
+
+Não:
+
+- Excluir dados sem backup.
+- Apagar a tabela antiga antes da validação.
+- Criar login.
+- Criar área de alunos.
+- Criar painel administrativo completo.
+- Criar histórico de conversas.
+- Alterar a identidade visual.
+- Alterar o funcionamento público da página.
+- Salvar as perguntas feitas ao copiloto.
+- Expor integrações ou credenciais no frontend.
+- Criar colunas técnicas na tabela principal.
+- Manter colunas antigas apenas por precaução sem justificar sua necessidade.
+
+# 22. RELATÓRIO FINAL
+
+Ao concluir, apresente:
+
+1. Estrutura anterior.
+2. Estrutura final.
+3. Tabelas auxiliares criadas.
+4. Quantidade de registros antes da migração.
+5. Quantidade de registros migrados.
+6. Registros que exigem revisão manual.
+7. Colunas removidas da tabela principal.
+8. Funções e consultas atualizadas.
+9. Políticas de segurança aplicadas.
+10. Resultado dos testes do cadastro manual.
+11. Resultado da integração com Google Sheets.
+12. Resultado da integração com Notion.
+13. Resultado da importação de PDFs do Google Drive.
+14. Limitações técnicas encontradas.
+15. Configurações manuais ainda necessárias.
+16. Confirmação de que o backup foi preservado.
+17. Confirmação de que o copiloto continua funcionando.
+
+Não afirme que uma integração foi testada quando o conector ou a autorização ainda não estiver disponível.
