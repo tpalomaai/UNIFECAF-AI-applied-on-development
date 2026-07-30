@@ -1,0 +1,457 @@
+# FINALIZAÇÃO DA ACADEMIA DE PÃES MARLI
+
+Realize a etapa final de acabamento, responsividade e auditoria completa da aplicação Academia de Pães Marli.
+
+Não adicione novas funcionalidades e não altere o escopo do MVP. Preserve a identidade visual, a tipografia, a paleta, os componentes, a integração com o backend e os comportamentos já aprovados.
+
+Corrija somente problemas de:
+
+- Responsividade.
+- Legibilidade.
+- Acessibilidade.
+- Organização visual.
+- Sobreposição.
+- Alinhamento.
+- Espaçamento.
+- Dimensionamento.
+- Funcionamento da interface.
+- Consistência entre diferentes tamanhos de tela.
+
+## 1. Nova imagem de fundo
+
+Adicione uma nova imagem de fundo na seção principal de conteúdo localizada após a hero section.
+
+Essa imagem deve ser diferente da imagem utilizada na hero section, mas permanecer coerente com o projeto e com a identidade da Academia de Pães Marli.
+
+A imagem poderá representar, de forma elegante e discreta:
+
+- Pães artesanais.
+- Bancada de preparo.
+- Farinha.
+- Trigo.
+- Massa sendo preparada.
+- Utensílios de panificação.
+- Madeira.
+- Tecidos naturais.
+- Ambiente de cozinha artesanal.
+- Ateliê de panificação.
+- Iluminação quente e acolhedora.
+
+Evite:
+
+- Reutilizar a mesma imagem da hero section.
+- Imagens muito claras.
+- Fotografias com excesso de objetos.
+- Imagens com textos.
+- Aparência de banco de imagens genérico.
+- Elementos que prejudiquem a leitura.
+- Imagens com estética moderna, tecnológica ou corporativa.
+
+## 2. Aplicação da imagem
+
+A imagem deve:
+
+- Ocupar toda a largura e altura visual da seção.
+- Utilizar comportamento equivalente a `background-size: cover`.
+- Manter proporção correta.
+- Ser reposicionada adequadamente conforme o tamanho da tela.
+- Não causar deformação.
+- Não gerar rolagem horizontal.
+- Não repetir.
+- Permanecer visível em Desktop, Tablet e Mobile.
+
+A seção deve possuir altura baseada em seu conteúdo. Não utilize uma altura fixa que provoque cortes em telas menores.
+
+A imagem não deve substituir a imagem da hero section. Ela deve ser um segundo elemento visual, utilizado exclusivamente na seção posterior.
+
+## 3. Camada de contraste
+
+Adicione sobre a nova imagem uma camada separada, semitransparente e levemente escura.
+
+Essa camada deve:
+
+- Reduzir o contraste da fotografia.
+- Suavizar detalhes muito fortes.
+- Manter a imagem reconhecível e visível.
+- Melhorar a leitura dos textos e caixas posicionados sobre ela.
+- Preservar a atmosfera artesanal e acolhedora.
+- Não deixar a imagem completamente escondida.
+
+Utilize também um desfoque suave.
+
+O desfoque deve ser aplicado somente à imagem ou à camada de fundo. Não aplique desfoque aos textos, botões, campos, cartões, respostas ou fontes.
+
+Organização recomendada das camadas:
+
+1. Imagem de fundo.
+2. Camada escura semitransparente.
+3. Camada de desfoque suave, quando necessário.
+4. Conteúdo da seção em primeiro plano.
+
+Garanta que os conteúdos permaneçam nítidos.
+
+Não utilize um efeito de glassmorphism exagerado.
+
+## 4. Contraste e legibilidade
+
+Verifique o contraste de todos os elementos posicionados sobre a imagem:
+
+- Títulos.
+- Descrições.
+- Campos.
+- Botões.
+- Perguntas sugeridas.
+- Respostas.
+- Mensagens de carregamento.
+- Mensagens de erro.
+- Fontes consultadas.
+- Textos auxiliares.
+
+Caso algum conteúdo fique difícil de ler:
+
+- Ajuste a intensidade da sobreposição.
+- Ajuste a opacidade da imagem.
+- Ajuste o fundo dos cartões.
+- Reforce discretamente as bordas.
+- Utilize sombras suaves somente quando necessário.
+
+Não altere a identidade visual geral para corrigir o contraste.
+
+## 5. Desempenho da imagem
+
+Otimize a nova imagem para uso na web.
+
+Quando possível:
+
+- Utilize WebP ou AVIF.
+- Evite arquivos excessivamente pesados.
+- Utilize uma resolução adequada para telas grandes.
+- Evite carregar versões muito maiores do que o necessário.
+- Utilize posicionamento responsivo.
+- Mantenha uma cor de fundo coerente enquanto a imagem carrega.
+
+Como a imagem é decorativa, ela não deve ser anunciada por leitores de tela.
+
+## 6. Auditoria completa da aplicação
+
+Faça uma auditoria completa de todas as páginas, rotas, seções, componentes e estados que já existem no projeto.
+
+Mesmo que o projeto possua somente uma página principal, revise todos os componentes utilizados nela.
+
+Não crie páginas, menus, modais ou tabelas que não existam. Apenas teste e corrija esses elementos caso já estejam presentes.
+
+Revise os estados:
+
+- Inicial.
+- Carregando.
+- Resposta encontrada.
+- Informação não encontrada.
+- Erro.
+- Nova consulta.
+- Tentativa novamente.
+- Campo vazio.
+- Campo preenchido.
+- Pergunta sugerida selecionada.
+
+## 7. Resoluções obrigatórias
+
+Teste e corrija a aplicação, no mínimo, nas seguintes larguras:
+
+- 320px.
+- 360px.
+- 390px.
+- 430px.
+- 768px.
+- 1024px.
+- 1280px.
+- 1440px.
+- 1920px.
+
+Analise também alturas reduzidas de tela, especialmente em notebooks e celulares com o teclado virtual aberto.
+
+## 8. Overflow horizontal
+
+Confirme que não existe overflow horizontal em nenhuma resolução.
+
+Verifique especialmente:
+
+- Elementos com largura fixa.
+- Textareas.
+- Botões.
+- Cartões.
+- Perguntas sugeridas.
+- Textos longos.
+- URLs ou palavras extensas.
+- Listas.
+- Imagens.
+- Ícones.
+- Containers.
+- Padding e margens.
+- Elementos posicionados de forma absoluta.
+- Pseudo-elementos decorativos.
+
+Utilize soluções como:
+
+- `max-width: 100%`.
+- Quebra adequada de palavras.
+- Containers responsivos.
+- `min-width: 0` em filhos de flex e grid.
+- Ajuste de padding por breakpoint.
+- Remoção de larguras mínimas desnecessárias.
+
+Não esconda problemas usando `overflow-x: hidden` como única correção. Corrija a origem do overflow.
+
+## 9. Textos
+
+Confirme que:
+
+- Nenhum título é cortado.
+- Nenhum parágrafo ultrapassa seu container.
+- Nenhum texto desaparece atrás de outros componentes.
+- Textos longos quebram corretamente.
+- O placeholder permanece legível.
+- As fontes consultadas não são truncadas indevidamente.
+- Mensagens de erro e carregamento aparecem integralmente.
+- Não existe texto pequeno demais em telas móveis.
+- A largura das linhas permanece confortável para leitura.
+
+Não reduza excessivamente a fonte apenas para fazer o conteúdo caber.
+
+## 10. Botões e controles
+
+Confirme que todos os botões:
+
+- Permanecem visíveis.
+- Permanecem clicáveis.
+- Não ficam cobertos por outros elementos.
+- Possuem área de toque adequada.
+- Mantêm texto legível.
+- Possuem estados de hover, foco e desabilitado.
+- Funcionam com teclado.
+- Não ultrapassam o container.
+- Não ficam excessivamente estreitos em telas pequenas.
+
+Revise especialmente:
+
+- “Consultar conteúdos”.
+- “Tentar novamente”.
+- Perguntas sugeridas.
+
+Durante o carregamento, confirme que o botão não altera sua largura de maneira que desorganize o layout.
+
+## 11. Campo de pergunta
+
+Confirme que o campo:
+
+- Ocupa corretamente a largura disponível.
+- Não ultrapassa seu container.
+- Permanece confortável em celulares.
+- Expande sem cobrir outros elementos.
+- Mantém o botão acessível.
+- Não fica escondido pelo teclado virtual.
+- Aceita Enter para envio.
+- Aceita Shift + Enter para nova linha.
+- Mantém foco visível.
+- Não sofre zoom ou corte inesperado em dispositivos móveis.
+
+## 12. Grids e componentes
+
+Confirme que:
+
+- Grids reorganizam corretamente.
+- Colunas viram uma única coluna quando necessário.
+- Perguntas sugeridas quebram linha de forma natural.
+- Cartões mantêm largura consistente.
+- A área de resposta permanece legível.
+- A lista de fontes se reorganiza corretamente.
+- Nenhum componente fica comprimido demais.
+- Nenhum componente se sobrepõe a outro.
+- Espaçamentos permanecem consistentes.
+
+Não mantenha duas colunas em telas onde o conteúdo fique apertado.
+
+## 13. Imagens
+
+Confirme que todas as imagens:
+
+- Mantêm proporção.
+- Não ficam esticadas.
+- Não ficam achatadas.
+- Não ultrapassam containers.
+- Não causam overflow.
+- Utilizam `object-fit` ou comportamento equivalente adequado.
+- Permanecem coerentes com o enquadramento em cada breakpoint.
+- Não escondem informações importantes.
+- Não competem com os textos.
+
+Ajuste o posicionamento da imagem de fundo separadamente para Desktop, Tablet e Mobile quando necessário.
+
+## 14. Menus, modais e tabelas
+
+Caso existam menus:
+
+- Confirmar abertura e fechamento.
+- Confirmar funcionamento por teclado.
+- Confirmar que permanecem dentro da tela.
+- Confirmar que não ficam atrás de outros componentes.
+
+Caso existam modais:
+
+- Confirmar que cabem na tela.
+- Permitir rolagem interna quando necessária.
+- Manter ações acessíveis.
+- Confirmar fechamento por botão, clique externo ou tecla Esc, conforme o comportamento existente.
+- Confirmar que o teclado virtual não esconde ações essenciais.
+
+Caso existam tabelas:
+
+- Torná-las responsivas.
+- Utilizar rolagem interna controlada quando necessário.
+- Preservar cabeçalhos e informações importantes.
+- Não permitir que a tabela cause overflow em toda a página.
+
+Não crie menus, modais ou tabelas novos apenas para cumprir esta auditoria.
+
+## 15. Posicionamento e sobreposição
+
+Verifique:
+
+- `z-index`.
+- Elementos absolutos.
+- Elementos fixos.
+- Camadas da imagem de fundo.
+- Sobreposições.
+- Ícones dentro de campos.
+- Indicadores de carregamento.
+- Mensagens dinâmicas.
+- Botões próximos às bordas.
+- Elementos decorativos.
+
+Confirme que:
+
+- Nenhum texto fica atrás da camada de fundo.
+- A camada escura não cobre os elementos interativos.
+- Nenhum botão fica atrás de uma imagem.
+- Nenhum cartão invade outro.
+- Nenhuma seção invade a seção seguinte.
+- O rodapé não cobre o conteúdo.
+- O conteúdo principal permanece acima das camadas decorativas.
+
+## 16. Consistência visual
+
+Confirme que o projeto mantém consistência entre Desktop, Tablet e Mobile em relação a:
+
+- Hierarquia.
+- Espaçamentos.
+- Alinhamentos.
+- Bordas.
+- Raios de canto.
+- Sombras.
+- Tamanhos dos controles.
+- Densidade visual.
+- Largura dos containers.
+- Aparência dos estados.
+- Área de resposta.
+- Fontes consultadas.
+
+A versão mobile deve ser uma adaptação coerente da versão desktop, e não uma interface visualmente desconectada.
+
+## 17. Acessibilidade
+
+Durante a auditoria, confirme:
+
+- Apenas um `h1`.
+- Hierarquia correta de títulos.
+- Labels associados aos campos.
+- Atributos `aria-label` em português.
+- Uso de `aria-live` nos estados dinâmicos.
+- Navegação por teclado.
+- Ordem de foco coerente.
+- Foco visível.
+- Contraste suficiente.
+- Áreas de toque adequadas.
+- Imagens decorativas ignoradas por leitores de tela.
+- Mensagens de erro compreensíveis.
+- Preferência por redução de movimento respeitada.
+
+## 18. Preservação do projeto
+
+Não altere:
+
+- Estrutura do banco de dados.
+- Campos da base de conhecimento.
+- Regras da inteligência artificial.
+- Busca semântica.
+- Integração com o backend.
+- Formato das fontes.
+- Textos obrigatórios.
+- Escopo da aplicação.
+
+Não crie:
+
+- Login.
+- Cadastro.
+- Upload.
+- Histórico de conversas.
+- Painel administrativo.
+- Área de alunos.
+- Pagamentos.
+- Novas páginas.
+- Novos recursos.
+- Elementos que não façam parte do MVP.
+
+## 19. Correção automática
+
+Ao encontrar qualquer problema de responsividade, acessibilidade ou funcionamento:
+
+1. Identifique a causa.
+2. Corrija o problema.
+3. Verifique se a correção não afeta outros tamanhos de tela.
+4. Teste novamente os componentes relacionados.
+5. Confirme que não foi criado um novo overflow ou sobreposição.
+6. Somente considere a tarefa concluída após a nova verificação.
+
+Não apenas liste os problemas encontrados. Corrija-os automaticamente sempre que for tecnicamente possível.
+
+## 20. Limpeza final
+
+Remova:
+
+- Código morto.
+- Imports não utilizados.
+- Classes sem efeito.
+- Regras CSS conflitantes.
+- Breakpoints redundantes.
+- Larguras fixas desnecessárias.
+- Posicionamentos absolutos frágeis.
+- Logs de desenvolvimento.
+- Placeholders temporários.
+- Comentários obsoletos.
+- Simulações que não façam mais parte do projeto.
+
+Não reestruture componentes que já funcionam sem necessidade.
+
+## 21. Relatório final
+
+Ao concluir, apresente um resumo contendo:
+
+1. Nova imagem de fundo adicionada.
+2. Seção em que ela foi aplicada.
+3. Tratamento de sobreposição e desfoque utilizado.
+4. Principais adaptações realizadas no Desktop.
+5. Principais adaptações realizadas no Tablet.
+6. Principais adaptações realizadas no Mobile.
+7. Problemas de overflow encontrados e corrigidos.
+8. Ajustes feitos em textos, botões, imagens, grids e componentes.
+9. Resultado da auditoria de acessibilidade.
+10. Resultado da verificação dos estados da aplicação.
+11. Arquivos e componentes modificados.
+12. Resoluções verificadas.
+13. Limitações técnicas restantes.
+14. Componentes que ainda exigem atenção manual, caso existam.
+
+Caso nenhuma limitação permaneça, informe claramente:
+
+“Nenhum componente exige atenção manual após a auditoria realizada.”
+
+Não afirme que uma resolução ou funcionalidade foi testada caso ela não tenha sido realmente verificada.
