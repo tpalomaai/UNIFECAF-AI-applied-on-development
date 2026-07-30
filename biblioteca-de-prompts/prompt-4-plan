@@ -1,0 +1,38 @@
+## Objetivo
+
+Substituir a simulação local por uma consulta real: pergunta → função segura de backend → embedding → busca semântica → IA → validação → frontend.
+
+## Backend
+
+**Novo:** `src/lib/copiloto.functions.ts` com `consultarCopiloto` (`createServerFn`, método POST), e `src/lib/copiloto.server.ts` com os auxiliares (embedding, busca, chamada da IA, validação).
+
+Fluxo dentro do handler:
+
+1. **Validação da entrada** — a propriedade `pergunta` existe, é texto, não está vazia nem só com espaços, `trim()` aplicado e limite de 500 caracteres. Nada é salvo no banco.
+2. **Embedding** — `POST https://ai.gateway.lovable.dev/v1/embeddings` com `openai/text-embedding-3-small` (mesmo modelo usado no backfill dos conteúdos, garantindo vetores comparáveis), usando `LOVABLE_API_KEY` lido dentro do handler.
+3. **Busca** — RPC `buscar_conteudos_relevantes` já existente, com `limite = 6` e `relevancia_minima = 0.35`, filtrando apenas registros ativos (já feito na função do banco). Duplicados removidos por conteúdo/título.
+4. **Corte de relevância** — se nenhum trecho atingir o mínimo, retorna `nao_encontrado` **sem chamar a IA**.
+5. **IA** — chat completions com o modelo `google/gemini-3.6-flash`, recebendo apenas: a instrução de sistema exigida, a pergunta validada e os trechos recuperados numerados com identificação interna. A base completa nunca é enviada.
+6. **Proteção contra manipulação** — a pergunta é inserida em bloco delimitado e rotulada explicitamente como conteúdo do usuário; a instrução de sistema afirma que instruções do usuário não substituem as regras. Se o modelo indicar ausência de base, o resultado vira `nao_encontrado`.
+7. **Validação do retorno** — o modelo devolve JSON (`status`, `resposta`, `indices_fontes`). Verificamos status válido, resposta como texto não vazio, lista de índices; fontes são montadas **somente** a partir dos trechos realmente recuperados (índices inválidos são descartados), deduplicadas e limitadas a 4. Nada de embeddings, trechos completos, logs ou chaves no retorno. Retorno inválido ou qualquer exceção → `status: "erro"` com a mensagem padrão.
+8. **Falhas** — rede, timeout (limite de tempo na chamada da IA), retorno vazio ou malformado, falha no embedding, falha na busca: todos convertidos em `erro`, com detalhes apenas em log de servidor.
+
+Acesso ao banco: cliente com service role carregado dentro do handler (a tabela continua bloqueada para o frontend).
+
+## Frontend
+
+- **`src/lib/tipos-copiloto.ts`** — `FonteConsulta` passa a ser `{ titulo, curso, categoria, subcategoria }`, conforme o formato de retorno pedido.
+- **`src/components/copiloto/ItemFonte.tsx`** — exibe título, curso e categoria/subcategoria (ajuste apenas de rótulos, sem mudar a identidade visual).
+- **`src/lib/servicoCopiloto.ts`** — remove a simulação; passa a chamar a função segura e a validar o formato recebido antes de devolver ao hook.
+- **`src/hooks/useConsultaCopiloto.ts`** — expõe `pergunta`, `ultimaPerguntaEnviada`, `status`, `resposta`, `fontes`, `erro`, `consultar`, `tentarNovamente`; bloqueia envios duplicados enquanto carrega, limpa o resultado anterior a cada nova consulta e faz `tentarNovamente` repetir apenas a última pergunta enviada.
+- **`src/routes/index.tsx`** — ajustado aos novos nomes do hook. Estados, mensagens, foco, `aria-live` e perguntas sugeridas permanecem como estão.
+
+## Testes manuais
+
+- **encontrado**: "Como saber se a massa chegou ao ponto de véu?"
+- **nao_encontrado**: "Qual a melhor marca de carro?"
+- **erro**: verificado via preview após simular falha da chamada externa (checagem no navegador com Playwright).
+
+## Fora do escopo
+
+Sem histórico, login, upload, painel administrativo ou conversa contínua.
