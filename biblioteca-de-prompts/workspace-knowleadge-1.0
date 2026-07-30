@@ -1,0 +1,131 @@
+# Padrões gerais do workspace
+
+Estas regras devem ser aplicadas a todos os projetos, exceto quando o Project Knowledge definir algo diferente.
+
+## Idioma
+
+- Todo conteúdo visível deve estar em português do Brasil.
+- Isso inclui títulos, botões, campos, placeholders, mensagens, tooltips, textos alternativos e aria-labels.
+- Não deixar textos genéricos em inglês ou Lorem ipsum na versão final.
+- Utilizar textos realistas e coerentes com o contexto do projeto.
+
+## Tecnologias
+
+- Utilizar React, TypeScript e Tailwind CSS.
+- Manter o TypeScript em modo estrito.
+- Reutilizar as bibliotecas e componentes existentes antes de instalar novas dependências.
+- Não substituir tecnologias existentes sem solicitação explícita.
+- Evitar dependências desnecessárias para funcionalidades simples.
+
+## TypeScript
+
+- Evitar `any`.
+- Utilizar `unknown` quando o tipo ainda precisar ser validado.
+- Criar tipos ou interfaces para dados do frontend e backend.
+- Tratar valores opcionais, nulos e respostas incompletas.
+- Não utilizar `@ts-ignore` apenas para ocultar erros.
+
+## Organização do código
+
+- Utilizar PascalCase em componentes e tipos.
+- Utilizar camelCase em variáveis, funções e propriedades.
+- Hooks personalizados devem começar com `use`.
+- Nomes de arquivos e componentes não devem conter espaços ou acentos.
+- Utilizar nomes claros e descritivos.
+- Não renomear arquivos que já funcionam sem necessidade.
+
+## Componentização
+
+- Dividir a interface em componentes com responsabilidades claras.
+- Evitar concentrar uma página inteira em um único arquivo.
+- Criar componentes reutilizáveis quando houver repetição real.
+- Não fragmentar elementos muito pequenos sem benefício.
+- Manter separação adequada entre componentes, hooks, serviços, tipos e dados.
+
+## Frontend e backend
+
+- Não executar lógica protegida diretamente em componentes React.
+- Centralizar chamadas externas em serviços, hooks ou funções de backend.
+- Não chamar inteligência artificial ou APIs protegidas diretamente no navegador.
+- Manter chaves, tokens e secrets apenas no backend.
+- Validar entradas no backend.
+- Validar no frontend o formato das respostas recebidas.
+- Não mostrar stack traces, secrets, logs internos ou mensagens técnicas ao usuário.
+
+## Estilização
+
+- Utilizar Tailwind CSS como solução principal.
+- Evitar estilos inline, exceto para valores realmente dinâmicos.
+- Respeitar cores, fontes e padrões definidos no Project Knowledge.
+- Não alterar toda a identidade visual ao editar um único componente.
+- Manter consistência entre campos, botões, cartões, mensagens e estados.
+
+## Responsividade
+
+- Desenvolver para celular, tablet e desktop.
+- Evitar larguras fixas que causem rolagem horizontal.
+- Utilizar containers e espaçamentos responsivos.
+- Garantir boa área de toque em dispositivos móveis.
+- Testar especialmente em 360px, 390px, 768px, 1024px e 1440px.
+- Não esconder funções essenciais em telas menores.
+
+## Acessibilidade
+
+- Utilizar HTML semântico.
+- Manter somente um `h1` principal por página.
+- Respeitar a hierarquia de títulos.
+- Associar labels aos campos.
+- Utilizar aria-labels em português quando necessário.
+- Utilizar aria-live em estados dinâmicos importantes.
+- Garantir foco visível e navegação por teclado.
+- Manter contraste adequado.
+- Imagens informativas devem possuir texto alternativo.
+- Imagens decorativas devem ser ignoradas por leitores de tela.
+- Respeitar a preferência de redução de movimento.
+
+## Estados da interface
+
+Toda operação assíncrona deve considerar:
+
+- Estado inicial.
+- Carregamento.
+- Sucesso.
+- Ausência de resultado.
+- Erro.
+
+Durante o carregamento:
+
+- Impedir envios duplicados.
+- Desabilitar controles quando necessário.
+- Não causar mudanças bruscas no layout.
+
+As mensagens de erro devem ser simples e não revelar detalhes técnicos.
+
+## Alterações
+
+- Alterar somente a área solicitada no prompt atual.
+- Não reescrever componentes que já funcionam sem necessidade.
+- Não remover funcionalidades existentes sem solicitação.
+- Não adicionar novas páginas, login, cadastro, upload ou painéis por iniciativa própria.
+- Preferir a solução mais simples compatível com o escopo.
+- Explicar antes de realizar alterações destrutivas.
+- Preservar dados e integrações existentes.
+
+## Qualidade
+
+- Remover imports, variáveis e componentes não utilizados.
+- Evitar código duplicado.
+- Não deixar logs de desenvolvimento na versão final.
+- Remover dados simulados depois que a integração real estiver pronta.
+- Não deixar código morto ou placeholders temporários.
+- Corrigir erros e avisos relevantes do console.
+
+## Finalização
+
+Ao concluir uma tarefa:
+
+- Resumir o que foi criado ou alterado.
+- Informar os principais arquivos modificados.
+- Explicar como testar.
+- Informar limitações ou pendências.
+- Não afirmar que algo foi testado quando não houve verificação.
