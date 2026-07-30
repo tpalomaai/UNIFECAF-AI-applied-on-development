@@ -1,0 +1,506 @@
+Quero planejar uma aplicação web chamada Academia de Pães Marli.
+
+Antes de criar ou alterar qualquer código, analise os requisitos e produza um plano de implementação completo, simples e organizado. Não implemente nada nesta etapa.
+
+## 1. Contexto do projeto
+
+A Academia de Pães Marli é uma plataforma de conhecimento sobre pães caseiros formada inicialmente por:
+
+- Um instrutor responsável pelos conteúdos.
+    
+- Uma pessoa responsável pela criação e suporte dentro dessa plataforma.
+    
+
+A aplicação será um copiloto de conhecimento para consultar os conteúdos.
+
+## 2. Objetivo da aplicação
+
+Criar uma aplicação de página única (semelhante a da imagem em anexo) na qual o usuário possa escrever perguntas em linguagem natural sobre:
+
+- Receitas.
+    
+- Ingredientes.
+    
+- Substituições.
+    
+- Fermentação.
+    
+- Sova.
+    
+- Desenvolvimento do glúten.
+    
+- Ponto de véu.
+    
+- Modelagem.
+    
+- Forneamento.
+    
+- Conservação.
+    
+- Problemas comuns na produção de pães.
+    
+
+O sistema deverá consultar uma base de conhecimento e utilizar inteligência artificial para gerar respostas claras, objetivas e fundamentadas exclusivamente nos conteúdos cadastrados.
+
+## 3. Regra principal da inteligência artificial
+
+A inteligência artificial deverá responder somente com base nas informações recuperadas da base de conhecimento da Academia de Pães Marli.
+
+Ela não poderá:
+
+- Utilizar conhecimento externo.
+    
+- Inventar informações.
+    
+- Criar receitas não cadastradas.
+    
+- Inventar quantidades, tempos ou temperaturas.
+    
+- Inventar proporções de substituição.
+    
+- Completar informações ausentes com suposições.
+    
+- Apresentar fontes que não tenham sido recuperadas da base.
+    
+
+Toda resposta encontrada deverá apresentar as fontes utilizadas, contendo:
+
+- Ferramenta da qual foi retirada essa informação. (apenas o ícone)
+    
+- Título do conteúdo.
+    
+- Endereço da pasta onde foi armazenada .
+    
+
+Quando não houver informação suficiente, o sistema deverá apresentar exatamente:
+
+“Não encontrei essa informação nos conteúdos cadastrados da Academia de Pães Marli.”
+
+## 4. Escopo do MVP
+
+A aplicação deverá conter somente:
+
+- Página única.
+    
+- Identidade visual da Academia de Pães Marli.
+    
+- Cabeçalho simples da marca.
+    
+- Apresentação curta do copiloto.
+    
+- Campo principal de pergunta.
+    
+- Botão de consulta.
+    
+- Perguntas sugeridas.
+    
+- Área de resposta.
+    
+- Lista das fontes utilizadas.
+    
+- Estado inicial.
+    
+- Estado de carregamento.
+    
+- Estado de resposta encontrada.
+    
+- Estado de informação não encontrada.
+    
+- Estado de erro.
+    
+- Botão para tentar novamente em caso de erro.
+    
+
+Cada consulta deverá ser independente. Uma nova pergunta deverá substituir a resposta anterior.
+
+## 5. Funcionalidades proibidas neste MVP
+
+Não planejar nem criar:
+
+- Login.
+    
+- Cadastro.
+    
+- Área de alunos.
+    
+- Área do instrutor.
+    
+- Painel administrativo.
+    
+- Pagamentos.
+    
+- Venda de cursos.
+    
+- Upload de documentos pela interface.
+    
+- Histórico de conversas.
+    
+- Chat com várias mensagens.
+    
+- Perfis de usuários.
+    
+- Favoritos.
+    
+- Avaliações.
+    
+- Notificações.
+    
+- Múltiplas páginas.
+    
+- Menu lateral complexo.
+    
+- Funcionalidades sociais.
+    
+- Salvamento das perguntas dos usuários.
+    
+- Funcionalidades que não sejam essenciais para demonstrar o copiloto.
+    
+
+## 6. Direção visual
+
+A organização da interface deverá ser inspirada na centralidade da busca do Glean, sem copiar sua identidade visual.
+
+A estética deverá seguir os conceitos:
+
+- Dark rustic premium.
+    
+- Rústico sofisticado.
+    
+- Artesanal contemporâneo.
+    
+- Elegância acolhedora.
+    
+- Luxo discreto.
+    
+- Minimalismo rústico.
+    
+- Estética gourmet.
+    
+- Visual editorial.
+    
+- Tradicional moderno.
+    
+- Premium artesanal.
+    
+
+## 7. Paleta e atmosfera
+
+Utilizar predominantemente:
+
+- Preto carvão.
+    
+- Marrom expresso.
+    
+- Marrom madeira.
+    
+- Bege creme.
+    
+- Dourado queimado.
+    
+- Caramelo.
+    
+- Light Grey
+    
+- Tons terrosos e quentes.
+    
+
+Evitar:
+
+- Branco puro em grandes áreas.
+    
+- Preto puro sem variações.
+    
+- Azul corporativo.
+    
+- Cores neon.
+    
+- Gradientes tecnológicos.
+    
+- Aparência futurista.
+    
+- Excesso de glassmorphism.
+    
+- Visual genérico de software empresarial.
+    
+
+## 8. Tipografia
+
+Use uma combinação tipográfica Dark Rustic Premium, com Hesland Vintage Font nos títulos, e Cormorant Garamond nos destaques, e Manrope nos textos, menus e botões. Os títulos devem ter aparência elegante, artesanal e sofisticada, enquanto os textos devem ser modernos, limpos e fáceis de ler. Utilize no máximo três famílias tipográficas, com títulos grandes, bom espaçamento e botões em letras maiúsculas com espaçamento entre caracteres.
+
+A fonte manuscrita não deverá ser usada em campos, botões, respostas ou textos longos.
+
+## 9. Elementos visuais
+
+A interface poderá utilizar discretamente:
+
+- Fotografia de cozinha gastronômica.
+    
+- Pão artesanal.
+    
+- Trigo.
+    
+- Farinha.
+    
+- Madeira.
+    
+- Tijolos aparentes.
+    
+- Texturas naturais.
+    
+- Ambiente de ateliê.
+    
+- Luz quente.
+    
+- Materiais orgânicos.
+    
+
+A fotografia deverá funcionar como apoio atmosférico e não poderá prejudicar a leitura ou competir com o campo de busca.
+
+## 10. Arquitetura técnica
+
+Planeje o projeto utilizando:
+
+- React.
+    
+- TypeScript.
+    
+- Tailwind CSS.
+    
+- Lovable Cloud.
+    
+- Componentes reutilizáveis.
+    
+- TypeScript estrito.
+    
+- Função segura de backend para consulta da base e chamada da IA.
+    
+- Busca semântica ou mecanismo nativo equivalente.
+    
+- Retorno estruturado entre backend e frontend.
+    
+
+Não realizar chamadas de inteligência artificial diretamente no navegador.
+
+## 11. Componentes esperados
+
+Planeje uma estrutura modular semelhante a:
+
+- PaginaCopiloto
+    
+- FundoEditorial
+    
+- CabecalhoMarca
+    
+- ApresentacaoCopiloto
+    
+- PainelConsulta
+    
+- CampoPergunta
+    
+- BotaoConsultar
+    
+- PerguntasSugeridas
+    
+- RespostaCopiloto
+    
+- ListaFontes
+    
+- ItemFonte
+    
+- EstadoCarregamento
+    
+- EstadoNaoEncontrado
+    
+- EstadoErro
+    
+- RodapeInstitucional
+    
+- useConsultaCopiloto
+    
+- servicoCopiloto
+    
+
+Os nomes podem ser ajustados, mas a aplicação não deverá ficar concentrada em um único arquivo.
+
+## 12. Base de conhecimento
+
+Planeje uma tabela principal para armazenar os conteúdos.
+
+Cada registro deverá conter informações semelhantes a:
+
+- Identificador.
+    
+- Título.
+    
+- Categoria.
+    
+- Subcategoria.
+    
+- Receita.
+    
+- Notas e Lembretes.
+    
+- Palavras-chave.
+    
+- Tags de Ingredientes.
+    
+- Informações necessárias para busca semântica.
+    
+- Status Ativo.
+    
+- Data de Criação.
+    
+- Data de Modificação
+    
+
+Não criar tabelas de usuários, conversas ou mensagens.
+
+## 13. Fluxo esperado
+
+Planeje o seguinte fluxo:
+
+1. O usuário escreve uma pergunta.
+    
+2. O frontend valida a entrada.
+    
+3. A função de backend recebe a pergunta.
+    
+4. A base de conhecimento é pesquisada.
+    
+5. O sistema verifica se os resultados possuem relevância suficiente.
+    
+6. Somente os trechos relevantes são enviados à inteligência artificial.
+    
+7. A IA gera uma resposta exclusivamente com base nesses trechos.
+    
+8. O backend valida o resultado.
+    
+9. O frontend apresenta a resposta e as fontes.
+    
+10. Quando não houver conteúdo suficiente, o estado de informação não encontrada é exibido.
+    
+11. Quando ocorrer uma falha, uma mensagem simples de erro é apresentada.
+    
+
+## 14. Formato de retorno
+
+Planeje um retorno estruturado com os status:
+
+- encontrado
+    
+- nao_encontrado
+    
+- erro
+    
+
+Exemplo:
+
+{
+
+"status": "encontrado",
+
+"resposta": "Texto da resposta",
+
+"fontes": [
+
+{
+
+  "titulo": "Título do conteúdo",
+
+  "curso": "Nome do curso",
+
+  "modulo": "Nome do módulo",
+
+  "secao": "Nome da aula ou seção"
+
+}
+
+]
+
+}
+
+## 15. Idioma e acessibilidade
+
+Todo conteúdo visível deverá estar em português do Brasil, incluindo:
+
+- Títulos HTML.
+    
+- Botões.
+    
+- Placeholders.
+    
+- Mensagens.
+    
+- Tooltips.
+    
+- aria-labels.
+    
+- Mensagens de erro.
+    
+- Estados da aplicação.
+    
+
+Os nomes de arquivos e componentes deverão permanecer sem espaços e sem acentos.
+
+Planeje também:
+
+- Navegação por teclado.
+    
+- Foco visível.
+    
+- Contraste adequado.
+    
+- aria-live nos estados dinâmicos.
+    
+- Responsividade para celular, tablet e desktop.
+    
+
+## 16. Resultado esperado deste planejamento
+
+Apresente:
+
+1. Resumo da solução.
+    
+2. Arquitetura do frontend.
+    
+3. Arquitetura do backend.
+    
+4. Componentes necessários.
+    
+5. Estrutura da página.
+    
+6. Estados da interface.
+    
+7. Modelo de dados.
+    
+8. Estratégia de busca.
+    
+9. Fluxo da inteligência artificial.
+    
+10. Estratégias contra respostas inventadas.
+    
+11. Estrutura de arquivos.
+    
+12. Ordem de implementação.
+    
+13. Estratégia de testes.
+    
+14. Riscos e decisões importantes.
+    
+
+Divida a futura implementação em quatro blocos:
+
+- Bloco 1: frontend e identidade visual.
+    
+- Bloco 2: base de conhecimento.
+    
+- Bloco 3: busca, IA e integração.
+    
+- Bloco 4: testes e acabamento.
+    
+
+Não implemente nada ainda.
+
+Não adicione funcionalidades fora do escopo.
+
+Faça perguntas somente se alguma informação for realmente indispensável para criar o plano. Para decisões secundárias, escolha a alternativa mais simples e registre a decisão como uma suposição.
